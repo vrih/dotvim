@@ -16,7 +16,7 @@ autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/ 
 
 
-colorscheme torte
+colorscheme solarized
 syntax on
 map T :TaskList<CR>
 set bs=2
