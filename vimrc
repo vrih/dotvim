@@ -9,12 +9,15 @@ let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
-au! Syntax searchterm source "~/vimfiles/syntax/searchterm.vim" 
+au! Syntax searchterm source "~/vimfiles/syntax/searchterm.vim"
 
 "highlight trailing whitespace
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/ 
-
+au InsertLeave * match ExtraWhitespace /\s\+$/
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 colorscheme solarized
 syntax on
@@ -98,6 +101,17 @@ autocmd BufNewFile,BufRead *.py
     \ set shiftround |
     \ set expandtab |
     \ set colorcolumn=81
+
+autocmd BufNewFile,BufRead *.java
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=80 |
+    \ set smarttab |
+    \ set shiftround |
+    \ set expandtab |
+    \ set colorcolumn=81
+
 
 " indenting shortcuts
 vnoremap < <gv
