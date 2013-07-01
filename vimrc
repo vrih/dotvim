@@ -54,16 +54,16 @@ autocmd FileType keys set filetype=aw_keywords
 
 
 " Set statusline
-set statusline=
-set statusline +=%1*\ %n\ %*            "buffer number
-set statusline +=%5*%{&ff}%*            "file format
-set statusline +=%3*%y%*                "file type
-set statusline +=%4*\ %<%F%*            "full path
-set statusline +=%2*%m%*                "modified flag
-set statusline +=%1*%=%5l%*             "current line
-set statusline +=%2*/%L%*               "total lines
-set statusline +=%1*%4v\ %*             "virtual column number
-set statusline +=%2*0x%04B\ %*          "character under cursor
+"set statusline=
+"set statusline +=%1*\ %n\ %*            "buffer number
+"set statusline +=%5*%{&ff}%*            "file format
+"set statusline +=%3*%y%*                "file type
+"set statusline +=%4*\ %<%F%*            "full path
+"set statusline +=%2*%m%*                "modified flag
+"set statusline +=%1*%=%5l%*             "current line
+"set statusline +=%2*/%L%*               "total lines
+"set statusline +=%1*%4v\ %*             "virtual column number
+"set statusline +=%2*0x%04B\ %*          "character under cursor
 
 
 hi User1 guifg=#eea040 guibg=#222222
@@ -174,3 +174,4 @@ au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabMappingForward = "<nul>"
 let g:SuperTabMappingLiteral = "<Tab>"
 let g:SuperTabDefaultCompletionType = "context"
+
