@@ -96,8 +96,7 @@ autocmd BufNewFile,BufRead *.py
     \ set textwidth=80 |
     \ set smarttab |
     \ set shiftround |
-    \ set expandtab |
-    \ set colorcolumn=81
+    \ set expandtab
 
 " indenting shortcuts
 vnoremap < <gv
@@ -105,6 +104,7 @@ vnoremap > >gv
 
 set number
 set fo-=t
+set colorcolumn=81
 set tw=79
 set nowrap
 highlight ColorColumn ctermbg=233 guibg=grey
@@ -171,6 +171,6 @@ set foldlevel=99
 " Super Tab
 " http://www.vim.org/scripts/script.php?script_id=1643
 au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabMappingForward = "<nul>"
+let g:SuperTabMappingForward = "<c-space>"
 let g:SuperTabMappingLiteral = "<Tab>"
 let g:SuperTabDefaultCompletionType = "context"
