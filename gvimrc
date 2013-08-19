@@ -15,16 +15,13 @@ au! Syntax searchterm source "~/vimfiles/syntax/searchterm.vim"
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/ 
 
-
-colorscheme torte
 syntax on
 map T :TaskList<CR>
 set bs=2
 set spell
 set visualbell
 set incsearch "" Incremental Search
-"set guifont=Bitstream_Vera_Sans_Mono:h9:cANSI
-set guifont=Droid\ Sans\ Mono\ 10
+set guifont=Consolas
 set laststatus=2 " Always show status bar
 
 set clipboard=unnamed " use system clipboard

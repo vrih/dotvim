@@ -4,6 +4,10 @@ call pathogen#helptags()
 
 filetype on
 
+"work in utf-8
+set encoding=utf-8
+
+
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
