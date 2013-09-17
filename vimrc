@@ -49,8 +49,8 @@ filetype plugin on
 
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
 autocmd FileType md set filetype=markdown
+autocmd FileType pig set filetype=pig
 
 " AdWords specific files
 autocmd FileType keys set filetype=aw_keywords
