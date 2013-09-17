@@ -23,7 +23,7 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-colorscheme solarized
+colorscheme evening
 syntax on
 map T :TaskList<CR>
 set bs=2
@@ -31,7 +31,7 @@ set spell
 set visualbell
 set incsearch "" Incremental Search
 "set guifont=Bitstream_Vera_Sans_Mono:h9:cANSI
-set guifont=Droid\ Sans\ Mono\ 10
+set guifont=Ubuntu\ Mono\ 10
 set laststatus=2 " Always show status bar
 
 set clipboard=unnamed " use system clipboard
