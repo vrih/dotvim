@@ -31,9 +31,9 @@
 [submodule "bundle/solarized"]
 	path = bundle/solarized
 	url = https://github.com/altercation/vim-colors-solarized
-[submodule "bundle/vim-r"]
-	path = bundle/vim-r
-	url = https://github.com/vim-scripts/Vim-R-plugin.git
-[submodule "bundle/pig.vim"]
-	path = bundle/pig.vim
-	url = https://github.com/vim-scripts/pig.vim
+[submodule "bundle/editorconfig-vim"]
+	path = bundle/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim
+[submodule "bundle/ale"]
+	path = bundle/ale
+	url = git@github.com:w0rp/ale.git

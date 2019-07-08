@@ -7,6 +7,7 @@ filetype on
 "work in utf-8
 set encoding=utf-8
 
+set fo+=w
 
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
@@ -30,8 +31,9 @@ set bs=2
 set spell
 set visualbell
 set incsearch "" Incremental Search
-"set guifont=Bitstream_Vera_Sans_Mono:h9:cANSI
-set guifont=Ubuntu\ Mono\ 10
+set guifont=Source\ Code\ Pro\ 11
+"set guifont=Source_Code_Pro_Regular
+"set guifont=Ubuntu\ Mono\ 10
 set laststatus=2 " Always show status bar
 
 set clipboard=unnamed " use system clipboard
@@ -50,7 +52,7 @@ filetype plugin on
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType md set filetype=markdown
-autocmd FileType pig set filetype=pig
+autocmd FileType rb set filetype=ruby
 
 " AdWords specific files
 autocmd FileType keys set filetype=aw_keywords
@@ -106,17 +108,6 @@ autocmd BufNewFile,BufRead *.py
     \ set expandtab |
     \ set colorcolumn=81
 
-autocmd BufNewFile,BufRead *.java
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=80 |
-    \ set smarttab |
-    \ set shiftround |
-    \ set expandtab |
-    \ set colorcolumn=81
-
-
 " indenting shortcuts
 vnoremap < <gv
 vnoremap > >gv
@@ -135,7 +126,6 @@ set noswapfile
 "curl 'www.vim.org/scripts/download_script.php?src_id=16224' \
 "  > ~/.vim/autoload/pathogen.vim
 call pathogen#infect()
-
 
 "==============
 " ctrlp
