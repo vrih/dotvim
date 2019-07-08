@@ -10,9 +10,6 @@
 [submodule "bundle/python-mode"]
 	path = bundle/python-mode
 	url = https://github.com/klen/python-mode.git
-[submodule "bundle/snipmate"]
-	path = bundle/snipmate
-	url = https://github.com/msanders/snipmate.vim.git
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = https://github.com/ervandew/supertab.git
@@ -40,3 +37,18 @@
 [submodule "bundle/vim-pencil"]
 	path = bundle/vim-pencil
 	url = git@github.com:reedes/vim-pencil.git
+[submodule "bundle/vim-markdown"]
+	path = bundle/vim-markdown
+	url = https://github.com/plasticboy/vim-markdown
+[submodule "bundle/vim-snippets"]
+	path = bundle/vim-snippets
+	url = https://github.com/honza/vim-snippets
+[submodule "bundle/vim-snipmate"]
+	path = bundle/vim-snipmate
+	url = https://github.com/garbas/vim-snipmate
+[submodule "bundle/tlib_vim"]
+	path = bundle/tlib_vim
+	url = https://github.com/tomtom/tlib_vim.git
+[submodule "bundle/vim-addon-mw-utils"]
+	path = bundle/vim-addon-mw-utils
+	url = https://github.com/MarcWeber/vim-addon-mw-utils.git

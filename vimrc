@@ -170,8 +170,8 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 " mkdir -p ~/.vim/ftplugin
 " wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
 "
-" set nofoldenable
-set foldmethod=indent
+set foldenable
+"set foldmethod=indent
 set foldlevel=99
 
 
@@ -183,3 +183,11 @@ let g:SuperTabMappingForward = "<nul>"
 let g:SuperTabMappingLiteral = "<Tab>"
 let g:SuperTabDefaultCompletionType = "context"
 
+
+
+" Pencil
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
