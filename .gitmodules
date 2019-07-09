@@ -52,3 +52,9 @@
 [submodule "bundle/deoplete.nvim"]
 	path = bundle/deoplete.nvim
 	url = https://github.com/Shougo/deoplete.nvim
+[submodule "bundle/vim-vue"]
+	path = bundle/vim-vue
+	url = https://github.com/posva/vim-vue
+[submodule "bundle/nerdcommenter"]
+	path = bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
