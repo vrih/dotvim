@@ -40,3 +40,6 @@
 [submodule "bundle/vim-pencil"]
 	path = bundle/vim-pencil
 	url = git@github.com:reedes/vim-pencil.git
+[submodule "bundle/vim-terraform"]
+	path = bundle/vim-terraform
+	url = https://github.com/hashivim/vim-terraform.git
