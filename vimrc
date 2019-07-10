@@ -1,12 +1,18 @@
+verbose set expandtab
 filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-filetype on
+set nocompatible
 
+filetype on
+set smartindent
+set autoindent
+filetype indent on
+filetype plugin indent on
 "work in utf-8
 set encoding=utf-8
-
+set expandtab
 set fo+=w
 
 let g:miniBufExplMapWindowNavVim = 1
@@ -183,11 +189,21 @@ let g:SuperTabMappingForward = "<nul>"
 let g:SuperTabMappingLiteral = "<Tab>"
 let g:SuperTabDefaultCompletionType = "context"
 
-
-
 " Pencil
 augroup pencil
   autocmd!
   autocmd FileType markdown,mkd call pencil#init()
   autocmd FileType text         call pencil#init()
 augroup END
+=======
+" Terraform
+let g:terraform_align=2
+let g:terraform_fold_sections=1
+let g:terraform_fmt_on_save=1
+
+
+" Ruby
+au Filetype ruby set softtabstop=2
+au Filetype ruby set sw=2
+au Filetype ruby set ts=2
+au Filetype ruby set expandtab
