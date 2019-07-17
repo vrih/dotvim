@@ -15,6 +15,7 @@ set encoding=utf-8
 set expandtab
 set fo+=w
 
+"au BufRead,BufNewFile *.md set filetype=markdown
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
@@ -137,6 +138,6 @@ let g:SuperTabDefaultCompletionType = "context"
 " Pencil
 augroup pencil
   autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
+  "  autocmd FileType markdown,mkd call pencil#init()
   autocmd FileType text         call pencil#init()
 augroup END
