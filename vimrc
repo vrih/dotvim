@@ -141,3 +141,15 @@ augroup pencil
   "  autocmd FileType markdown,mkd call pencil#init()
   autocmd FileType text         call pencil#init()
 augroup END
+
+let g:projectionist_heuristics = {
+            \ '*.go': {
+            \   '*.go': {
+            \       'alternate': '{}_test.go',
+            \       'type': 'source'
+            \   },
+            \   '*_test.go': {
+            \       'alternate': '{}.go',
+            \       'type': 'test'
+            \   },
+            \ }}
