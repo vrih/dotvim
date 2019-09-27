@@ -16,8 +16,6 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'reedes/vim-pencil'
 Plug 'plasticboy/vim-markdown'
 Plug 'garbas/vim-snipmate'
-Plug 'tomtom/tlib_vim'
-Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'juliosueiras/vim-terraform-completion', { 'for': 'terraform' }
 Plug 'vim-syntastic/syntastic'
