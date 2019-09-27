@@ -82,3 +82,9 @@
 [submodule "bundle/vim-easy-align"]
 	path = bundle/vim-easy-align
 	url = http://www.github.com/junegunn/vim-easy-align
+[submodule "bundle/vim-emoji-ab"]
+	path = bundle/vim-emoji-ab
+	url = https://gitlab.com/gi1242/vim-emoji-ab
+[submodule "bundle/vim-gitgutter"]
+	path = bundle/vim-gitgutter
+	url = git://github.com/airblade/vim-gitgutter.git
