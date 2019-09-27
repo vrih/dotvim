@@ -178,11 +178,3 @@ let g:projectionist_heuristics = {
             \       'type': 'test'
             \   },
             \}}
-
-if executable('terraform-lsp')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'terraform-lsp',
-        \ 'cmd': {server_info->['terraform-lsp -enable-log-file']},
-        \ 'whitelist': ['terraform'],
-        \ })
-endif
