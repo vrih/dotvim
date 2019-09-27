@@ -1,7 +1,37 @@
 verbose set expandtab
 filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'jcrocholl/pep8', {'for': 'python' }
+Plug 'klen/python-mode', {'for': 'python' }
+Plug 'ervandew/supertab'
+Plug 'kien/ctrlp.vim'
+Plug 'fholgado/minibufexpl.vim'
+Plug 'bling/vim-airline'
+Plug 'majutsushi/tagbar'
+Plug 'altercation/vim-colors-solarized'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'reedes/vim-pencil'
+Plug 'plasticboy/vim-markdown'
+Plug 'garbas/vim-snipmate'
+Plug 'tomtom/tlib_vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
+Plug 'juliosueiras/vim-terraform-completion', { 'for': 'terraform' }
+Plug 'vim-syntastic/syntastic'
+Plug 'Shougo/deoplete.nvim'
+Plug 'posva/vim-vue'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-dispatch'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'junegunn/vim-easy-align'
+Plug 'airblade/vim-gitgutter'
+Plug 'dense-analysis/ale'
+call plug#end()
 
 set nocompatible
 
@@ -95,11 +125,6 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-"mkdir -p ~/.vim/autoload ~/.vim/bundle
-"curl 'www.vim.org/scripts/download_script.php?src_id=16224' \
-"  > ~/.vim/autoload/pathogen.vim
-call pathogen#infect()
-
 "==============
 " ctrlp
 " ===========
@@ -152,4 +177,12 @@ let g:projectionist_heuristics = {
             \       'alternate': '{}.go',
             \       'type': 'test'
             \   },
-            \ }}
+            \}}
+
+if executable('terraform-lsp')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'terraform-lsp',
+        \ 'cmd': {server_info->['terraform-lsp -enable-log-file']},
+        \ 'whitelist': ['terraform'],
+        \ })
+endif
