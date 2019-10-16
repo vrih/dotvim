@@ -32,6 +32,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
 Plug 'dense-analysis/ale'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 set nocompatible
