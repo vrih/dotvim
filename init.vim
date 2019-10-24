@@ -2,12 +2,14 @@ verbose set expandtab
 filetype off
 
 call plug#begin('~/.config/nvim/plugged')
+Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'jcrocholl/pep8', {'for': 'python' }
 Plug 'klen/python-mode', {'for': 'python' }
 Plug 'ervandew/supertab'
 Plug 'kien/ctrlp.vim'
+Plug 'fatih/vim-go'
 Plug 'fholgado/minibufexpl.vim'
 Plug 'bling/vim-airline'
 Plug 'majutsushi/tagbar'
@@ -33,6 +35,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
 Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
+Plug 'https://gitlab.com/gi1242/vim-emoji-ab'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 call plug#end()
 
 set nocompatible
@@ -46,14 +51,12 @@ filetype plugin indent on
 set encoding=utf-8
 set expandtab
 set fo+=w
+set ignorecase
 
-"au BufRead,BufNewFile *.md set filetype=markdown
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
-
-au! Syntax searchterm source "~/vimfiles/syntax/searchterm.vim"
 
 "highlight trailing whitespace
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
@@ -81,10 +84,12 @@ set wildmenu
 
 let mapleader="," "extend keyboard map options
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 inoremap <expr><tab> pumvisible() ? "\<c-n>" :"\<tab>"
 " Reload vimrc on save
-autocmd! bufwritepost .vimrc source %
-
 filetype plugin on
 
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
@@ -93,9 +98,6 @@ autocmd FileType rb set filetype=ruby
 
 " AdWords specific files
 autocmd FileType keys set filetype=aw_keywords
-
-" CSV files
-:let g:csv_delimeter = "\t"
 
 " Set statusline
 "set statusline=
@@ -170,6 +172,7 @@ augroup pencil
 "  autocmd FileType markdown,mkd call pencil#init()
   autocmd FileType text         call pencil#init()
 augroup END
+let g:airline_powerline_fonts = 1
 
 let g:projectionist_heuristics = {
             \ '*.go': {
@@ -182,3 +185,14 @@ let g:projectionist_heuristics = {
             \       'type': 'test'
             \   },
             \}}
+
+
+" Abbreviations
+iabbrev mon Monday
+iabbrev tue Tuesday
+iabbrev wed Wednesday
+iabbrev thu Thursday
+iabbrev fri Friday
+iabbrev sat Saturday
+iabbrev sun Sunday
+
