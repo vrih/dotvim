@@ -1,9 +1,20 @@
 {
-        "languageserver": {
+  "languageserver": {
     "terraform": {
       "command": "terraform-lsp",
-      "filetypes": ["terraform"],
+      "filetypes": [
+        "terraform"
+      ],
+      "initializationOptions": {}
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "filetypes": [
+        "sh"
+      ],
       "initializationOptions": {}
     }
-  }
+  },
+  "coc.preferences.formatOnSaveFiletypes": ["ruby", "vue", "sh"],
+  "vetur.format.defaultFormatter.html": "prettier"
 }

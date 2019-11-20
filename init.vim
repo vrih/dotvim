@@ -10,7 +10,6 @@ Plug 'klen/python-mode', {'for': 'python' }
 Plug 'ervandew/supertab'
 Plug 'kien/ctrlp.vim'
 Plug 'fatih/vim-go'
-Plug 'fholgado/minibufexpl.vim'
 Plug 'bling/vim-airline'
 Plug 'majutsushi/tagbar'
 Plug 'altercation/vim-colors-solarized'
@@ -23,7 +22,7 @@ Plug 'garbas/vim-snipmate'
 Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
 Plug 'vim-syntastic/syntastic'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'posva/vim-vue'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-rake'
@@ -52,11 +51,9 @@ set encoding=utf-8
 set expandtab
 set fo+=w
 set ignorecase
-
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
+set title
+set noshowmode
+set termguicolors
 
 "highlight trailing whitespace
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
@@ -76,7 +73,7 @@ set visualbell
 set incsearch "" Incremental Search
 set guifont="Source Code Pro"
 set laststatus=2 " Always show status bar
-
+set relativenumber
 set clipboard=unnamed " use system clipboard
 
 set wildmode=longest,list,full
@@ -156,7 +153,7 @@ inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 set foldenable
-"set foldmethod=indent
+set foldmethod=syntax
 set foldlevel=99
 
 " Tab Completion
@@ -173,7 +170,8 @@ augroup pencil
   autocmd FileType text         call pencil#init()
 augroup END
 let g:airline_powerline_fonts = 1
-
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:projectionist_heuristics = {
             \ '*.go': {
             \   '*.go': {
@@ -186,7 +184,6 @@ let g:projectionist_heuristics = {
             \   },
             \}}
 
-
 " Abbreviations
 iabbrev mon Monday
 iabbrev tue Tuesday
@@ -196,3 +193,29 @@ iabbrev fri Friday
 iabbrev sat Saturday
 iabbrev sun Sunday
 
+let g:pymode_rope_lookup_project = 0
+let g:pymode_rope = 0
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+set updatetime=300
+set signcolumn=yes
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
