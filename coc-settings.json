@@ -13,8 +13,14 @@
         "sh"
       ],
       "initializationOptions": {}
+    },
+    "docker": {
+      "command": "docker-langserver",
+      "args": ["--stdio"],
+      "filetypes": ["Dockerfile"],
+      "initializationOptions": {}
     }
   },
-  "coc.preferences.formatOnSaveFiletypes": ["ruby", "vue", "sh"],
+  "coc.preferences.formatOnSaveFiletypes": ["ruby", "vue", "sh", "Dockerfile"],
   "vetur.format.defaultFormatter.html": "prettier"
 }
