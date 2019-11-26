@@ -32,7 +32,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'junegunn/vim-easy-align'
 Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
-Plug 'dense-analysis/ale'
+"Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'https://gitlab.com/gi1242/vim-emoji-ab'
 Plug 'SirVer/ultisnips'
@@ -42,18 +42,8 @@ call plug#end()
 set nocompatible
 
 filetype on
-set smartindent
-set autoindent
 filetype indent on
 filetype plugin indent on
-"work in utf-8
-set encoding=utf-8
-set expandtab
-set fo+=w
-set ignorecase
-set title
-set noshowmode
-set termguicolors
 
 "highlight trailing whitespace
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
@@ -63,21 +53,44 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-set background=dark
 colorscheme gruvbox
-syntax on
+highlight ColorColumn ctermbg=233 guibg=grey
 map T :TaskList<CR>
+set autoindent
+set background=dark
 set bs=2
-set spell
-set visualbell
-set incsearch "" Incremental Search
-set guifont="Source Code Pro"
-set laststatus=2 " Always show status bar
-set relativenumber
 set clipboard=unnamed " use system clipboard
-
-set wildmode=longest,list,full
+set completeopt=longest,menuone
+set encoding=utf-8
+set expandtab
+set formatoptions+=wcq
+set formatoptions-=t
+set foldenable
+set foldlevel=99
+set foldmethod=syntax
+set guifont="Source Code Pro"
+set ignorecase
+set incsearch "" Incremental Search
+set laststatus=2 " Always show status bar
+set nobackup
+set noshowmode
+set noswapfile
+set nowrap
+set nowritebackup
+set number
+set relativenumber
+set signcolumn=yes
+set smartindent
+set spell
+set termguicolors
+set title
+set tw=79
+set updatetime=300
+set visualbell
 set wildmenu
+set wildmode=longest,list,full
+
+syntax on
 
 let mapleader="," "extend keyboard map options
 let g:deoplete#enable_at_startup = 1
@@ -93,21 +106,6 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType md set filetype=markdown
 autocmd FileType rb set filetype=ruby
 
-" AdWords specific files
-autocmd FileType keys set filetype=aw_keywords
-
-" Set statusline
-"set statusline=
-"set statusline +=%1*\ %n\ %*            "buffer number
-"set statusline +=%5*%{&ff}%*            "file format
-"set statusline +=%3*%y%*                "file type
-"set statusline +=%4*\ %<%F%*            "full path
-"set statusline +=%2*%m%*                "modified flag
-"set statusline +=%1*%=%5l%*             "current line
-"set statusline +=%2*/%L%*               "total lines
-"set statusline +=%1*%4v\ %*             "virtual column number
-"set statusline +=%2*0x%04B\ %*          "character under cursor
-
 hi User1 guifg=#eea040 guibg=#222222
 hi User2 guifg=#dd3333 guibg=#222222
 hi User3 guifg=#ff66ff guibg=#222222
@@ -118,16 +116,6 @@ autocmd BufNewFile,BufRead " indenting shortcuts
 vnoremap < <gv
 vnoremap > >gv
 
-set number
-set fo-=t
-set tw=79
-set nowrap
-highlight ColorColumn ctermbg=233 guibg=grey
-
-set nobackup
-set nowritebackup
-set noswapfile
-
 "==============
 " ctrlp
 " ===========
@@ -137,7 +125,6 @@ let g:ctrlp_max_height=30
 
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
-set completeopt=longest,menuone
 function! OmniPopup(action)
 if pumvisible()
 if a:action == 'j'
@@ -151,10 +138,6 @@ endfunction
 
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
-
-set foldenable
-set foldmethod=syntax
-set foldlevel=99
 
 " Tab Completion
 " Super Tab
@@ -204,8 +187,6 @@ endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
-set updatetime=300
-set signcolumn=yes
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
@@ -219,3 +200,13 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
+
+" Coc plugins
+" coc-snippets
+" coc-go
+" coc-json
+" coc-solargraph
+" coc-prettier
+" coc-yaml
+" coc-vetur
+" coc-eslint
