@@ -32,7 +32,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'junegunn/vim-easy-align'
 Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
-"Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'https://gitlab.com/gi1242/vim-emoji-ab'
 Plug 'SirVer/ultisnips'
@@ -210,3 +210,10 @@ let g:coc_snippet_next = '<tab>'
 " coc-yaml
 " coc-vetur
 " coc-eslint
+"
+function FixBlankLines()
+        :silent %s/\($\n\)\{3,\}/\r\r/e
+        :silent %s/\($\n\)\{2,\}\%$/\r/e
+endfunction
+
+au BufWritePre * call FixBlankLines()
