@@ -21,6 +21,13 @@
       "initializationOptions": {}
     }
   },
+    "codeLens.enable": true,
+    "solargraph.formatting": true,
+    "solargraph.useBundler": true,
+    "solargraph.symbols": true,
+    "solargraph.hover": true,
+    "solargraph.definitions": true,
+    "solargraph.rename": true,
   "coc.preferences.formatOnSaveFiletypes": ["ruby", "vue", "sh", "Dockerfile"],
   "vetur.format.defaultFormatter.html": "prettier"
 }

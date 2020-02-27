@@ -2,6 +2,7 @@ verbose set expandtab
 filetype off
 
 call plug#begin('~/.config/nvim/plugged')
+Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -210,7 +211,10 @@ let g:coc_snippet_next = '<tab>'
 " coc-yaml
 " coc-vetur
 " coc-eslint
-"
+
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
 function FixBlankLines()
         :silent %s/\($\n\)\{3,\}/\r\r/e
         :silent %s/\($\n\)\{2,\}\%$/\r/e
