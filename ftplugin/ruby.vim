@@ -7,3 +7,4 @@ setlocal smarttab
 setlocal shiftround
 setlocal colorcolumn=101
 
+autocmd BufWritePre * %s/\s\+$//e
