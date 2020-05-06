@@ -4,15 +4,14 @@ Plug 'junegunn/fzf',  { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'jcrocholl/pep8', {'for': 'python' }
 Plug 'klen/python-mode', {'for': 'python' }
 "Plug 'ervandew/supertab'
 Plug 'fatih/vim-go'
-Plug 'bling/vim-airline'
 Plug 'majutsushi/tagbar'
-Plug 'altercation/vim-colors-solarized'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'reedes/vim-pencil'
 Plug 'plasticboy/vim-markdown'
@@ -31,10 +30,10 @@ Plug 'tpope/vim-dispatch'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'junegunn/vim-easy-align'
 Plug 'airblade/vim-gitgutter'
-Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
+"Plug 'morhetz/gruvbox'
 Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
-Plug 'https://gitlab.com/gi1242/vim-emoji-ab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 call plug#end()
@@ -52,11 +51,11 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
-colorscheme gruvbox
+set t_Co=256   " This is may or may not needed.
+set background=light
+colorscheme PaperColor
 highlight ColorColumn ctermbg=233 guibg=grey
 set autoindent
-set background=dark
 set bs=2
 set clipboard=unnamed " use system clipboard
 set completeopt=longest,menuone
@@ -81,7 +80,6 @@ set relativenumber
 set signcolumn=yes
 set smartindent
 set spell
-set termguicolors
 set title
 set tw=79
 set updatetime=300
