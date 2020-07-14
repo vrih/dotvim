@@ -2,16 +2,12 @@
   "languageserver": {
     "terraform": {
       "command": "terraform-lsp",
-      "filetypes": [
-        "terraform"
-      ],
+      "filetypes": ["terraform"],
       "initializationOptions": {}
     },
     "bash": {
       "command": "bash-language-server",
-      "filetypes": [
-        "sh"
-      ],
+      "filetypes": ["sh"],
       "initializationOptions": {}
     },
     "docker": {
@@ -21,13 +17,24 @@
       "initializationOptions": {}
     }
   },
-    "codeLens.enable": true,
-    "solargraph.formatting": true,
-    "solargraph.useBundler": true,
-    "solargraph.symbols": true,
-    "solargraph.hover": true,
-    "solargraph.definitions": true,
-    "solargraph.rename": true,
-  "coc.preferences.formatOnSaveFiletypes": ["ruby", "vue", "sh", "Dockerfile"],
+  "codeLens.enable": true,
+  "solargraph.autoformat": true,
+  "solargraph.formatting": true,
+  "solargraph.useBundler": true,
+  "solargraph.symbols": true,
+  "solargraph.hover": true,
+  "solargraph.definitions": true,
+  "solargraph.rename": true,
+  "solargraph.folding": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "ruby",
+    "vue",
+    "sh",
+    "Dockerfile",
+    "json"
+  ],
+  "yaml.schemas": {
+    "kubernetes": "/*.yaml"
+  },
   "vetur.format.defaultFormatter.html": "prettier"
 }

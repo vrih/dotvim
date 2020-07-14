@@ -1,4 +1,3 @@
-verbose set expandtab
 call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/fzf',  { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -20,6 +19,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'garbas/vim-snipmate'
 Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
+Plug 'godlygeek/tabular'
 Plug 'vim-syntastic/syntastic'
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'posva/vim-vue'
@@ -41,8 +41,8 @@ call plug#end()
 set nocompatible
 
 filetype on
-filetype indent on
 filetype plugin indent on
+filetype indent on
 
 "highlight trailing whitespace
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
@@ -347,6 +347,8 @@ endfunction
 au BufWritePre * call FixBlankLines()
 
 nnoremap <silent> <leader>e :Files<cr>
+nnoremap <silent> <leader>g :GFiles<cr>
 nnoremap <silent> <leader>a :Ag<cr>
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 nnoremap <silent> <leader>t :Tagbar<cr>
+
