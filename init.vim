@@ -51,17 +51,21 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-set t_Co=256   " This is may or may not needed.
-set background=light
+
 colorscheme PaperColor
 highlight ColorColumn ctermbg=233 guibg=grey
 set autoindent
-set bs=2
-set clipboard=unnamed " use system clipboard
-set completeopt=longest,menuone
+set backspace=2
+set completeopt=longest,menuone,preview
 set encoding=utf-8
 set expandtab
+
+" Set format options
+" w = trailing white space indicated paragraph continues into next line
+" c = autowrap comments
+" q = allow formatting of comments with gq
 set formatoptions+=wcq
+" t = auto wrap text using text width
 set formatoptions-=t
 set foldenable
 set foldlevel=99
