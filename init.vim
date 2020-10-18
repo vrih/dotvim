@@ -71,19 +71,18 @@ set foldenable
 set foldlevel=99
 set foldmethod=syntax
 set guifont="Source Code Pro"
-set ignorecase
+set smartcase
 set incsearch "" Incremental Search
 set laststatus=2 " Always show status bar
 set nobackup
 set noshowmode
-set noswapfile
 set nowrap
 set nowritebackup
 set number
 set relativenumber
 set signcolumn=yes
 set smartindent
-set spell
+set spell spelllang=en_gb
 set title
 set tw=79
 set updatetime=300
@@ -107,11 +106,11 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType md set filetype=markdown
 autocmd FileType rb set filetype=ruby
 
-hi User1 guifg=#eea040 guibg=#222222
-hi User2 guifg=#dd3333 guibg=#222222
-hi User3 guifg=#ff66ff guibg=#222222
-hi User4 guifg=#a0ee40 guibg=#222222
-hi User5 guifg=#eeee40 guibg=#222222
+highlight User1 guifg=#eea040 guibg=#222222
+highlight User2 guifg=#dd3333 guibg=#222222
+highlight User3 guifg=#ff66ff guibg=#222222
+highlight User4 guifg=#a0ee40 guibg=#222222
+highlight User5 guifg=#eeee40 guibg=#222222
 
 autocmd BufNewFile,BufRead " indenting shortcuts
 vnoremap < <gv
@@ -190,23 +189,11 @@ endfunction
 " TextEdit might fail if hidden is not set.
 set hidden
 
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
-
 " Give more space for displaying messages.
 set cmdheight=2
 
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -340,7 +327,7 @@ let g:coc_snippet_next = '<tab>'
 " coc-vetur
 " coc-eslint
 
-let g:vimwiki_list = [{'path': '~/vimwiki/',
+let g:vimwiki_list = [{'path': '~/wiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
 function FixBlankLines()
