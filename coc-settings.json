@@ -33,8 +33,11 @@
     "Dockerfile",
     "json"
   ],
+  "yaml.format.enable": true,
   "yaml.schemas": {
-    "kubernetes": "/*.yaml"
+    "kubernetes": "/*.yaml",
+    "https://json.schemastore.org/ansible-stable-2.9": "/home/daniel/ansible/playbooks/*.yaml",
+    "https://raw.githubusercontent.com/docker/compose/master/compose/config/config_schema_v3.7.json": "docker-*.yml"
   },
   "vetur.format.defaultFormatter.html": "prettier"
 }
