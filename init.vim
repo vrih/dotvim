@@ -54,6 +54,7 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+set background=light
 colorscheme PaperColor
 highlight ColorColumn ctermbg=233 guibg=grey
 set autoindent
