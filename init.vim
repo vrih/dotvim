@@ -5,6 +5,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
+Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'jcrocholl/pep8', {'for': 'python' }
 Plug 'klen/python-mode', {'for': 'python' }
@@ -35,6 +36,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
+Plug 'habamax/vim-asciidoctor'
 Plug 'honza/vim-snippets'
 call plug#end()
 
@@ -52,6 +54,7 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+set background=light
 colorscheme PaperColor
 highlight ColorColumn ctermbg=233 guibg=grey
 set autoindent
@@ -165,6 +168,11 @@ let g:projectionist_heuristics = {
             \       'alternate': '{}.go',
             \       'type': 'test'
             \   },
+            \  },      
+            \'vue.config.js': {
+            \   'src/*.vue': { 'alternate': 'tests/unit/{}.spec.js' },
+            \   'src/*.js': { 'alternate': 'tests/unit/{}.spec.js' },
+            \   "tests/unit/*.spec.js": { "dispatch": "yarn test:unit {file}" }
             \}}
 
 " Abbreviations
@@ -343,3 +351,5 @@ nnoremap <silent> <leader>a :Ag<cr>
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 nnoremap <silent> <leader>t :Tagbar<cr>
 
+" Gitlab token
+let g:gitlab_api_keys = {'gitlab.com': $CI_JOB_TOKEN}
