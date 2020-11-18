@@ -38,6 +38,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
 Plug 'habamax/vim-asciidoctor'
 Plug 'honza/vim-snippets'
+Plug 'https://gitlab.com/dbeniamine/todo.txt-vim'
 call plug#end()
 
 set nocompatible
@@ -96,6 +97,7 @@ set wildmode=longest,list,full
 syntax on
 
 let mapleader="," "extend keyboard map options
+noremap \ ,
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -152,7 +154,7 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 " Pencil
 augroup pencil
   autocmd!
-  autocmd FileType markdown,md call pencil#init()
+  "autocmd FileType markdown,md call pencil#init()
 "  autocmd FileType text         call pencil#init()
 augroup END
 let g:airline_powerline_fonts = 1
@@ -346,10 +348,28 @@ endfunction
 au BufWritePre * call FixBlankLines()
 
 nnoremap <silent> <leader>e :Files<cr>
-nnoremap <silent> <leader>g :GFiles<cr>
+nnoremap <silent> <leader>f :GFiles<cr>
 nnoremap <silent> <leader>a :Ag<cr>
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 nnoremap <silent> <leader>t :Tagbar<cr>
 
-" Gitlab token
+" Git mappings 
+" https://jakobgm.com/posts/vim/git-integration/
+nmap ]h :GitGutterNextHunk<cr>
+nmap [h :GitGutterPrevHunk<cr>
+" Hunk-add and hunk-revert for chunk staging
+nmap <Leader>ga :GitGutterStageHunk<cr>
+nmap <Leader>gu :GitGutterUndoHunk<cr>
+
+" Use fontawesome icons as signs
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '>'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '<'
+"  Gitlab token
 let g:gitlab_api_keys = {'gitlab.com': $CI_JOB_TOKEN}
+" Update sign column every quarter second
+set updatetime=250
+" Set filetype for daily scrum
+autocmd BufRead,BufNewFile ~/Documents/journal/* set syntax=markdown
