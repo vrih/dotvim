@@ -368,3 +368,6 @@ let g:gitlab_api_keys = {'gitlab.com': $CI_JOB_TOKEN}
 set updatetime=250
 " Set filetype for daily scrum
 autocmd BufRead,BufNewFile ~/Documents/journal/* set syntax=markdown
+
+let g:snipMate = { 'snippet_version' : 1 }
+
