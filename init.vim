@@ -6,10 +6,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'jcrocholl/pep8', {'for': 'python' }
 Plug 'klen/python-mode', {'for': 'python' }
-"Plug 'ervandew/supertab'
 Plug 'fatih/vim-go'
 Plug 'majutsushi/tagbar'
 Plug 'editorconfig/editorconfig-vim'
@@ -22,7 +20,6 @@ Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
 Plug 'godlygeek/tabular'
 Plug 'vim-syntastic/syntastic'
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'posva/vim-vue'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-rake'
@@ -32,7 +29,6 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'junegunn/vim-easy-align'
 Plug 'airblade/vim-gitgutter'
 Plug 'NLKNguyen/papercolor-theme'
-"Plug 'morhetz/gruvbox'
 Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
@@ -74,7 +70,6 @@ set formatoptions-=t
 set foldenable
 set foldlevel=99
 set foldmethod=syntax
-set guifont="Source Code Pro"
 set smartcase
 set incsearch "" Incremental Search
 set laststatus=2 " Always show status bar
@@ -86,7 +81,6 @@ set number
 set relativenumber
 set signcolumn=yes
 set smartindent
-set spell spelllang=en_gb
 set title
 set tw=79
 set updatetime=300
@@ -107,7 +101,6 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" :"\<tab>"
 " Reload vimrc on save
 filetype plugin on
 
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType md set filetype=markdown
 autocmd FileType rb set filetype=ruby
 
@@ -157,6 +150,7 @@ augroup pencil
   "autocmd FileType markdown,md call pencil#init()
 "  autocmd FileType text         call pencil#init()
 augroup END
+
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -185,6 +179,9 @@ iabbrev thu Thursday
 iabbrev fri Friday
 iabbrev sat Saturday
 iabbrev sun Sunday
+
+iabbrev zjpm @john.medforth.consultant
+iabbrev zdim @dimitrij.denissenko.consultant
 
 let g:pymode_rope_lookup_project = 0
 let g:pymode_rope = 0
@@ -340,12 +337,10 @@ let g:coc_snippet_next = '<tab>'
 let g:vimwiki_list = [{'path': '~/wiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
-function FixBlankLines()
-        :silent %s/\($\n\)\{3,\}/\r\r/e
-        :silent %s/\($\n\)\{2,\}\%$/\r/e
-endfunction
-
-au BufWritePre * call FixBlankLines()
+augroup blanks
+        autocmd!
+        autocmd BufWritePre * call FixBlankLines()
+augroup END
 
 nnoremap <silent> <leader>e :Files<cr>
 nnoremap <silent> <leader>f :GFiles<cr>
