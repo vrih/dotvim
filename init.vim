@@ -4,7 +4,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'fatih/vim-go'
 Plug 'majutsushi/tagbar'
 Plug 'editorconfig/editorconfig-vim'
@@ -345,14 +344,6 @@ nnoremap <silent> <leader>a :Ag<cr>
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 nnoremap <silent> <leader>t :Tagbar<cr>
 
-" Git mappings 
-" https://jakobgm.com/posts/vim/git-integration/
-nmap ]h :GitGutterNextHunk<cr>
-nmap [h :GitGutterPrevHunk<cr>
-" Hunk-add and hunk-revert for chunk staging
-nmap <Leader>ga :GitGutterStageHunk<cr>
-nmap <Leader>gu :GitGutterUndoHunk<cr>
-
 " Use fontawesome icons as signs
 let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = '>'
@@ -382,3 +373,4 @@ let g:lightline = {
   \     'gitbranch': 'fugitive#head',
   \   }
   \ }
+  
