@@ -2,12 +2,9 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/fzf',  { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'vimwiki/vimwiki'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
-Plug 'jcrocholl/pep8', {'for': 'python' }
-Plug 'klen/python-mode', {'for': 'python' }
 Plug 'fatih/vim-go'
 Plug 'majutsushi/tagbar'
 Plug 'editorconfig/editorconfig-vim'
@@ -371,3 +368,17 @@ autocmd BufRead,BufNewFile ~/Documents/journal/* set syntax=markdown
 
 let g:snipMate = { 'snippet_version' : 1 }
 
+let g:lightline = {
+  \   'colorscheme': 'PaperColor_light',
+  \   'active': {
+  \     'left':[ [ 'mode', 'paste' ],
+  \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+  \     ]
+  \   },
+	\   'component': {
+	\     'lineinfo': ' %3l:%-2v',
+	\   },
+  \   'component_function': {
+  \     'gitbranch': 'fugitive#head',
+  \   }
+  \ }
