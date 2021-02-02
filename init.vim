@@ -39,6 +39,10 @@ filetype on
 filetype plugin indent on
 filetype indent on
 
+if has('termguicolors')
+  set termguicolors
+endif
+
 "highlight trailing whitespace
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
