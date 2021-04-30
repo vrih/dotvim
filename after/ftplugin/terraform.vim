@@ -4,3 +4,4 @@ function TFVariableSort ()
  execute 'g/[:word:]* {/s/§/\r/g'
 endfunction
 
+compiler terraform
