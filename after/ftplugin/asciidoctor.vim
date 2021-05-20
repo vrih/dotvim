@@ -6,3 +6,5 @@ else
   let b:undo_ftplugin = ''
 endif
 let b:undo_ftplugin .=  '|setlocal spell<'
+
+compiler asciidoc
