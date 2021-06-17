@@ -30,6 +30,7 @@ Plug 'SirVer/ultisnips'
 Plug 'habamax/vim-asciidoctor'
 Plug 'honza/vim-snippets'
 Plug 'https://gitlab.com/dbeniamine/todo.txt-vim'
+Plug 'chrisbra/unicode.vim'
 call plug#end()
 
 set nocompatible
