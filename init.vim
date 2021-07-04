@@ -11,7 +11,6 @@ Plug 'reedes/vim-pencil'
 Plug 'plasticboy/vim-markdown'
 Plug 'tomtom/tlib_vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'garbas/vim-snipmate'
 Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
 Plug 'godlygeek/tabular'
@@ -31,6 +30,7 @@ Plug 'SirVer/ultisnips'
 Plug 'habamax/vim-asciidoctor'
 Plug 'honza/vim-snippets'
 Plug 'https://gitlab.com/dbeniamine/todo.txt-vim'
+Plug 'chrisbra/unicode.vim'
 call plug#end()
 
 set nocompatible
@@ -103,6 +103,7 @@ filetype plugin on
 
 autocmd FileType md set filetype=markdown
 autocmd FileType rb set filetype=ruby
+autocmd BufRead,BufNewFile /tmp/*.md setlocal ft=markdown.glab
 
 highlight User1 guifg=#eea040 guibg=#222222
 highlight User2 guifg=#dd3333 guibg=#222222
@@ -164,7 +165,7 @@ let g:projectionist_heuristics = {
             \       'alternate': '{}.go',
             \       'type': 'test'
             \   },
-            \  },      
+            \  },
             \'vue.config.js': {
             \   'src/*.vue': { 'alternate': 'tests/unit/{}.spec.js' },
             \   'src/*.js': { 'alternate': 'tests/unit/{}.spec.js' },
@@ -336,6 +337,7 @@ let g:coc_snippet_next = '<tab>'
 
 let g:vimwiki_list = [{'path': '~/wiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_global_ext = 0
 
 augroup blanks
         autocmd!
@@ -361,7 +363,7 @@ set updatetime=250
 " Set filetype for daily scrum
 autocmd BufRead,BufNewFile ~/Documents/journal/* set syntax=markdown
 
-let g:snipMate = { 'snippet_version' : 1 }
+nnoremap <silent> <leader>m :Asciidoctor2HTML<cr>
 
 let g:lightline = {
   \   'colorscheme': 'PaperColor_light',
@@ -377,4 +379,9 @@ let g:lightline = {
   \     'gitbranch': 'fugitive#head',
   \   }
   \ }
-  
+
+autocmd BufRead, *.rb nmap <leader>r :silent !{ruby %}<cr>
+
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
