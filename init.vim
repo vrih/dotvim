@@ -1,6 +1,4 @@
 call plug#begin('~/.config/nvim/plugged')
-Plug 'junegunn/fzf',  { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
