@@ -1,6 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'vimwiki/vimwiki'
-Plug 'itchyny/lightline.vim'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'tpope/vim-fugitive'
 Plug 'fatih/vim-go'
 Plug 'majutsushi/tagbar'
@@ -19,7 +20,7 @@ Plug 'tpope/vim-rake'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-dispatch'
 Plug 'junegunn/vim-easy-align'
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 Plug 'NLKNguyen/papercolor-theme'
 "Plug 'dense-analysis/ale'
 Plug 'sheerun/vim-polyglot'
@@ -29,9 +30,16 @@ Plug 'honza/vim-snippets'
 Plug 'https://gitlab.com/dbeniamine/todo.txt-vim'
 Plug 'chrisbra/unicode.vim'
 
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim', { 'branch': 'main' }
+
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-cmdline', { 'branch': 'main' }
+Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
 
 " dependencies
 Plug 'kyazdani42/nvim-web-devicons'
@@ -39,6 +47,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 " telescope
 Plug 'nvim-telescope/telescope.nvim'
+
 call plug#end()
 
 set nocompatible
@@ -53,82 +62,91 @@ endif
 "highlight trailing whitespace
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
 
-set background=light
-colorscheme PaperColor
-highlight ColorColumn ctermbg=233 guibg=grey
-set autoindent
-set backspace=2
-set completeopt=menuone,noselect
-set encoding=utf-8
-set expandtab
+lua <<EOF
+-- Simplify movement shortcuts
+vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true })
 
-" Set format options
-" w = trailing white space indicated paragraph continues into next line
-" c = autowrap comments
-" q = allow formatting of comments with gq
-set formatoptions+=wcq
-" t = auto wrap text using text width
-set formatoptions-=t
-set foldenable
-set foldlevel=99
-set foldmethod=syntax
-set smartcase
-set incsearch "" Incremental Search
-set laststatus=2 " Always show status bar
-set nobackup
-set noshowmode
-set nowrap
-set nowritebackup
-set number
-set relativenumber
-set signcolumn=yes
-set smartindent
-set title
-set tw=79
-set updatetime=300
-set visualbell
-set wildmenu
-set wildmode=longest,list,full
+-- theme
+vim.o.background = 'dark'
+vim.cmd('colorscheme PaperColor')
+vim.cmd('highlight ColorColumn ctermbg=233 guibg=grey')
 
-syntax on
+-- basic options
+vim.o.autoindent = true
+vim.o.backspace = 'indent,eol,start'
+vim.o.completeopt = 'menuone,noselect'
+vim.o.encoding = 'utf-8'
+vim.o.expandtab = true
+vim.g.nobackup = true
+vim.g.noshowmode = true
+vim.g.nowritebackup = true
+vim.g.nowrap = true
 
-let mapleader="," "extend keyboard map options
-noremap \ ,
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-inoremap <expr><tab> pumvisible() ? "\<c-n>" :"\<tab>"
-" Reload vimrc on save
-filetype plugin on
+-- Set format options
+-- w = trailing white space indicated paragraph continues into next line
+-- c = autowrap comments
+-- q = allow formatting of comments with gq
+vim.o.formatoptions = 'qnj1'
 
-autocmd FileType md set filetype=markdown
-autocmd FileType rb set filetype=ruby
-autocmd BufRead,BufNewFile /tmp/*.md setlocal ft=markdown.glab
+-- foldine
+vim.o.foldenable = true
+vim.o.foldlevel = 99
+vim.o.foldmethod = 'syntax'
 
+-- search
+vim.o.ignorecase = true -- Ignore case starting search
+vim.o.smartcase = true -- Be case sensitive if upper case letters are used
+vim.o.incsearch =  true -- Incremental Search
+
+-- visual
+vim.o.number = true -- show line numbers
+vim.o.relativenumber = true
+vim.o.signcolumn = 'yes' -- Always show sign column
+vim.o.smartindent = true
+vim.o.laststatus = 2 -- Always show status bar
+vim.o.title = true
+vim.o.tw = 79
+vim.o.updatetime = 300
+vim.o.visualbell = true
+vim.o.wildmenu = true
+vim.o.wildmode = 'longest,list,full'
+
+vim.cmd('syntax on')
+
+vim.g.mapleader = ","  -- extend keyboard map options
+vim.api.nvim_set_keymap('n', '\\', ',', { noremap = true })
+-- Snippet shortcuts
+vim.g['deoplete#enable_at_startup'] = 1
+vim.g['deoplete#enable_smart_case'] = 1
+vim.g.UltiSnipsExpandTrigger = "<tab>"
+vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
+vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
+vim.api.nvim_set_keymap('i', '<EXPR><TAB>', 'pumvisible() ? "<C-n>" : "<TAB>"', { noremap = true })
+vim.cmd('filetype plugin on')
+
+vim.cmd([[
+  autocmd FileType md set filetype=markdown
+  autocmd FileType rb set filetype=ruby
+  autocmd BufRead,BufNewFile /tmp/*.md setlocal ft=markdown.glab
+  ]])
+
+vim.cmd([[
 highlight User1 guifg=#eea040 guibg=#222222
 highlight User2 guifg=#dd3333 guibg=#222222
 highlight User3 guifg=#ff66ff guibg=#222222
 highlight User4 guifg=#a0ee40 guibg=#222222
 highlight User5 guifg=#eeee40 guibg=#222222
+]])
 
-autocmd BufNewFile,BufRead " indenting shortcuts
-vnoremap < <gv
-vnoremap > >gv
+vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true })
+vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true })
 
-"==============
-" ctrlp
-" ===========
-" cd ~/.vim/bundle
-" git clone https://github.com/kien/ctrlp.vim
-let g:ctrlp_max_height=30
-
+vim.g.ctrlp_max_height=30
+EOF
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
 function! OmniPopup(action)
@@ -159,9 +177,11 @@ augroup pencil
 "  autocmd FileType text         call pencil#init()
 augroup END
 
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+"let g:airline_powerline_fonts = 1
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#buffer_nr_show = 1
+
+
 let g:projectionist_heuristics = {
             \ '*.go': {
             \   '*.go': {
@@ -179,7 +199,9 @@ let g:projectionist_heuristics = {
             \   "tests/unit/*.spec.js": { "dispatch": "yarn test:unit {file}" }
             \}}
 
-" Abbreviations
+lua <<EOF
+-- Abbreviations
+vim.cmd([[
 iabbrev mon Monday
 iabbrev tue Tuesday
 iabbrev wed Wednesday
@@ -187,13 +209,12 @@ iabbrev thu Thursday
 iabbrev fri Friday
 iabbrev sat Saturday
 iabbrev sun Sunday
+]])
 
-iabbrev zjpm @john.medforth.consultant
-iabbrev zdim @dimitrij.denissenko.consultant
-
-let g:pymode_rope_lookup_project = 0
-let g:pymode_rope = 0
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+vim.g.pymode_rope_lookup_project = 0
+vim.g.pymode_rope = 0
+vim.g.ctrlp_custom_ignore = 'node_modules\\|DS_Store\\|git'
+EOF
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -202,68 +223,62 @@ endfunction
 
 """
 " TextEdit might fail if hidden is not set.
-set hidden
+lua <<EOF
+vim.o.hidden = true -- TextEdit might fail if hidden is not set
+vim.o.cmdheight = 2 -- Give more space for displaying messages.
+--vim.o.shortmess = vim.o.shortmess + 'c' -- Don't pass messages to |ins-completion-menu|.
 
-" Give more space for displaying messages.
-set cmdheight=2
+-- vimwiki config
+vim.g.vimwiki_list = {{ path = '~/wiki/', syntax = 'markdown', ext = '.md'}}
+vim.g.vimwiki_global_ext = 0
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
+--augroup blanks
+--       "autocmd!
+--        "autocmd BufWritePre * call FixBlankLines()
+--augroup END
 
-let g:vimwiki_list = [{'path': '~/wiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_global_ext = 0
+vim.api.nvim_set_keymap('n', '<Leader>e', ':Files<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>f', '<cmd>Telescope find_files<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>a', '<cmd>Telescope live_grep<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>b', '<cmd>Telescope buffers<CR>', { noremap = true, silent = true })
 
-augroup blanks
-        autocmd!
-        autocmd BufWritePre * call FixBlankLines()
-augroup END
+vim.api.nvim_set_keymap('n', '<Leader>n', ':NERDTreeToggle<CR>>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>t', ':Tagbar<CR>', { noremap = true, silent = true })
 
-nnoremap <silent> <leader>e :Files<cr>
-nnoremap <silent> <leader>f <cmd>Telescope find_files<cr>
-nnoremap <silent> <leader>a <cmd>Telescope live_grep<cr>
-nnoremap <silent> <leader>b <cmd>Telescope buffers<cr>
-
-nnoremap <silent> <leader>n :NERDTreeToggle<cr>
-nnoremap <silent> <leader>t :Tagbar<cr>
-
-" Use fontawesome icons as signs
-let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '>'
-let g:gitgutter_sign_removed = '-'
-let g:gitgutter_sign_removed_first_line = '^'
-let g:gitgutter_sign_modified_removed = '<'
-"  Gitlab token
-let g:gitlab_api_keys = {'gitlab.com': $CI_JOB_TOKEN}
-" Update sign column every quarter second
-set updatetime=250
+-- Gitgutter sign config
+--vim.g.gitgutter_sign_added = '+'
+--vim.g.gitgutter_sign_modified = '>'
+--vim.g.gitgutter_sign_removed = '-'
+--vim.g.gitgutter_sign_removed_first_line = '^'
+--vim.g.gitgutter_sign_modified_removed = '<'
+EOF
 " Set filetype for daily scrum
 autocmd BufRead,BufNewFile ~/Documents/journal/* set syntax=markdown
 
 nnoremap <silent> <leader>m :Asciidoctor2HTML<cr>
 
-let g:lightline = {
-  \   'colorscheme': 'PaperColor_light',
-  \   'active': {
-  \     'left':[ [ 'mode', 'paste' ],
-  \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
-  \     ]
-  \   },
-	\   'component': {
-	\     'lineinfo': ' %3l:%-2v',
-	\   },
-  \   'component_function': {
-  \     'gitbranch': 'fugitive#head',
-  \   }
-  \ }
-
-autocmd BufRead, *.rb nmap <leader>r :silent !{ruby %}<cr>
-
-let g:UltiSnipsExpandTrigger="<c-l>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
 lua << EOF
+vim.g.lightline = {
+     colorscheme = 'PaperColor_light',
+     active = {
+       left = {
+         { 'mode', 'paste' },
+         { 'gitbranch', 'readonly', 'filename', 'modified' }
+       }
+     },
+	   component = {
+	     lineinfo = ' %3l:%-2v',
+	   },
+     component_function = {
+       gitbranch = 'fugitive#head',
+     }
+   }
+
+-- Ultisnips keybindings
+vim.g.UltiSnipsExpandTrigger = '<C-l>'
+vim.g.UltiSnipsJumpForwardTrigger = '<C-b>'
+vim.g.UltiSnipsJumpBackwardTrigger = '<C-z>'
+
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
@@ -305,7 +320,7 @@ local on_attach = function(client, bufnr)
   end
 end
 
-local servers = {'pyright', 'solargraph', 'vimls'}
+local servers = {'pyright', 'terraformls', 'vimls', 'bashls'}
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
@@ -317,44 +332,51 @@ local servers = {'pyright', 'solargraph', 'vimls'}
         enable = true
     },
   }
-EOF
 
-lua << EOF
-require 'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = {
-    border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
-    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-    max_width = 120,
-    min_width = 60,
-    max_height = math.floor(vim.o.lines * 0.3),
-    min_height = 1,
-  };
+local cmp = require 'cmp'
 
-  source = {
-    path = true;
-    nvim_lsp = true;
-  };
-}
-EOF
+cmp.setup({
+  snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        --vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+        -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
+      end,
+    },
+  mapping = {
+	  ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
+	  ['<CR>'] = cmp.mapping.confirm({ select = true }),
+	  ['<C-e>'] = cmp.mapping(cmp.mapping.close()),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
+    ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'})
+	  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+    { name = 'path' },
+    { name = 'ultisnips' },
+  })
 
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+  })
 
-lua << EOF
+	    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
+  -- Setup lspconfig.
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+  require('lspconfig')['pyright'].setup {
+    capabilities = capabilities
+  }
+
 require('telescope').setup{
   defaults = {
     vimgrep_arguments = {
@@ -399,4 +421,83 @@ require('telescope').setup{
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
   }
 }
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false,
+		underline = true,
+    signs = true,
+    update_in_insert = false,
+  }
+)
+
+-- Send diagnostics to quickfix list
+do
+  local method = "textDocument/publishDiagnostics"
+  local default_handler = vim.lsp.handlers[method]
+  vim.lsp.handlers[method] = function(err, method, result, client_id, bufnr, config)
+    default_handler(err, method, result, client_id, bufnr, config)
+    local diagnostics = vim.lsp.diagnostic.get_all()
+    local qflist = {}
+    for bufnr, diagnostic in pairs(diagnostics) do
+      for _, d in ipairs(diagnostic) do
+        d.bufnr = bufnr
+        d.lnum = d.range.start.line + 1
+        d.col = d.range.start.character + 1
+        d.text = d.message
+        table.insert(qflist, d)
+      end
+    end
+    vim.lsp.util.set_qflist(qflist)
+  end
+end
+
+require'nvim-web-devicons'.setup {
+ -- your personnal icons can go here (to override)
+ -- DevIcon will be appended to `name`
+ override = {
+  zsh = {
+    icon = "",
+    color = "#428850",
+    name = "Zsh"
+  }
+ };
+ -- globally enable default icons (default to false)
+ -- will get overriden by `get_icons` option
+ default = true;
+}
+
+require'lualine'.setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {},
+    always_divide_middle = true,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff',
+                  {'diagnostics', sources={'nvim_lsp', 'coc'}}},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  extensions = {}
+}
+
+require('gitsigns').setup()
+
 EOF
+
