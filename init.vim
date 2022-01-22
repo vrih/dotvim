@@ -20,14 +20,10 @@ Plug 'tpope/vim-rake'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-dispatch'
 Plug 'junegunn/vim-easy-align'
-"Plug 'airblade/vim-gitgutter'
 Plug 'NLKNguyen/papercolor-theme'
-"Plug 'dense-analysis/ale'
-Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
 Plug 'habamax/vim-asciidoctor'
 Plug 'honza/vim-snippets'
-Plug 'https://gitlab.com/dbeniamine/todo.txt-vim'
 Plug 'chrisbra/unicode.vim'
 
 Plug 'nvim-lua/plenary.nvim'
@@ -479,7 +475,7 @@ require'lualine'.setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff',
-                  {'diagnostics', sources={'nvim_lsp', 'coc'}}},
+                  {'diagnostics', sources={'nvim_diagnostic'}}},
     lualine_c = {'filename'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
