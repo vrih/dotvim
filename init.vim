@@ -316,18 +316,12 @@ local on_attach = function(client, bufnr)
   end
 end
 
-local servers = {'pyright', 'terraformls', 'vimls', 'bashls'}
-  for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {
-      on_attach = on_attach,
-    }
-  end
 
-  require'nvim-treesitter.configs'.setup {
-    highlight = {
-        enable = true
-    },
-  }
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+      enable = true
+  },
+}
 
 local cmp = require 'cmp'
 
@@ -369,9 +363,19 @@ cmp.setup({
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  require('lspconfig')['pyright'].setup {
-    capabilities = capabilities
+  -- require('lspconfig')['pyright'].setup {
+  --   capabilities = capabilities
+  -- }
+local servers = {'pyright', 'terraformls', 'vimls', 'bashls'}
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    capabilties = capabilities,
+    flags = {
+      debounce_text_changes = 150,
+    }
   }
+end
 
 require('telescope').setup{
   defaults = {
