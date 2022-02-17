@@ -36,6 +36,8 @@ Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
 Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
 Plug 'hrsh7th/cmp-cmdline', { 'branch': 'main' }
 Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
 
 " dependencies
 Plug 'kyazdani42/nvim-web-devicons'
