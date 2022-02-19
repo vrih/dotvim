@@ -237,6 +237,7 @@ vim.g.vimwiki_global_ext = 0
 
 vim.api.nvim_set_keymap('n', '<Leader>e', ':Files<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>f', '<cmd>Telescope find_files<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>q', '<cmd>Telescope quickfix<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>a', '<cmd>Telescope live_grep<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>b', '<cmd>Telescope buffers<CR>', { noremap = true, silent = true })
 
@@ -250,28 +251,7 @@ vim.api.nvim_set_keymap('n', '<Leader>t', ':Tagbar<CR>', { noremap = true, silen
 --vim.g.gitgutter_sign_removed_first_line = '^'
 --vim.g.gitgutter_sign_modified_removed = '<'
 EOF
-" Set filetype for daily scrum
-autocmd BufRead,BufNewFile ~/Documents/journal/* set syntax=markdown
-
-nnoremap <silent> <leader>m :Asciidoctor2HTML<cr>
-
 lua << EOF
-vim.g.lightline = {
-     colorscheme = 'PaperColor_light',
-     active = {
-       left = {
-         { 'mode', 'paste' },
-         { 'gitbranch', 'readonly', 'filename', 'modified' }
-       }
-     },
-	   component = {
-	     lineinfo = ' %3l:%-2v',
-	   },
-     component_function = {
-       gitbranch = 'fugitive#head',
-     }
-   }
-
 -- Ultisnips keybindings
 vim.g.UltiSnipsExpandTrigger = '<C-l>'
 vim.g.UltiSnipsJumpForwardTrigger = '<C-b>'
@@ -317,7 +297,6 @@ local on_attach = function(client, bufnr)
       buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   end
 end
-
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
@@ -368,7 +347,7 @@ cmp.setup({
   -- require('lspconfig')['pyright'].setup {
   --   capabilities = capabilities
   -- }
-local servers = {'dockerls', 'pyright', 'terraformls', 'vimls', 'bashls'}
+local servers = {'ansiblels', 'dockerls', 'pyright', 'pylsp', 'terraformls', 'vimls', 'bashls'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -413,7 +392,6 @@ require('telescope').setup{
     border = {},
     borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
     color_devicons = true,
-    use_less = true,
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
     file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
     grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
