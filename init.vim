@@ -142,8 +142,6 @@ highlight User5 guifg=#eeee40 guibg=#222222
 
 vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true })
 vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true })
-
-vim.g.ctrlp_max_height=30
 EOF
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
@@ -175,10 +173,10 @@ augroup pencil
 "  autocmd FileType text         call pencil#init()
 augroup END
 
-"let g:airline_powerline_fonts = 1
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#buffer_nr_show = 1
-
+augroup docker
+        autocmd!
+        autocmd BufRead,BufNewFile Dockerfile* setlocal ft=docker
+augroup END
 
 let g:projectionist_heuristics = {
             \ '*.go': {
@@ -191,6 +189,9 @@ let g:projectionist_heuristics = {
             \       'type': 'test'
             \   },
             \  },
+            \ 'pyproject.toml': {
+            \  'src/*.py': { 'alternate': 'tests/test_{}.py' }
+            \ },
             \'vue.config.js': {
             \   'src/*.vue': { 'alternate': 'tests/unit/{}.spec.js' },
             \   'src/*.js': { 'alternate': 'tests/unit/{}.spec.js' },
@@ -211,7 +212,6 @@ iabbrev sun Sunday
 
 vim.g.pymode_rope_lookup_project = 0
 vim.g.pymode_rope = 0
-vim.g.ctrlp_custom_ignore = 'node_modules\\|DS_Store\\|git'
 EOF
 
 function! s:check_back_space() abort
@@ -225,10 +225,6 @@ lua <<EOF
 vim.o.hidden = true -- TextEdit might fail if hidden is not set
 vim.o.cmdheight = 2 -- Give more space for displaying messages.
 --vim.o.shortmess = vim.o.shortmess + 'c' -- Don't pass messages to |ins-completion-menu|.
-
--- vimwiki config
-vim.g.vimwiki_list = {{ path = '~/wiki/', syntax = 'markdown', ext = '.md'}}
-vim.g.vimwiki_global_ext = 0
 
 --augroup blanks
 --       "autocmd!
@@ -288,7 +284,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
@@ -347,7 +342,7 @@ cmp.setup({
   -- require('lspconfig')['pyright'].setup {
   --   capabilities = capabilities
   -- }
-local servers = {'ansiblels', 'dockerls', 'pyright', 'pylsp', 'terraformls', 'vimls', 'bashls'}
+local servers = {'ansiblels', 'dockerls', 'pyright', 'pylsp', 'terraformls', 'vimls', 'bashls', 'yamlls'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -357,6 +352,20 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
+local lspconfig = require('lspconfig')
+lspconfig.yamlls.setup({
+on_attach = on_attach,
+settings = {
+        yaml = {
+                schemaDownload = {
+                enable = true
+                },
+                schemas = {
+                        }
+        }
+}}
+)
 
 require('telescope').setup{
   defaults = {
