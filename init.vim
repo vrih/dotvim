@@ -20,7 +20,7 @@ Plug 'tpope/vim-rake'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-dispatch'
 Plug 'junegunn/vim-easy-align'
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'pappasam/papercolor-theme-slim'
 Plug 'SirVer/ultisnips'
 Plug 'habamax/vim-asciidoctor'
 Plug 'honza/vim-snippets'
@@ -70,7 +70,7 @@ vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true })
 
 -- theme
 vim.o.background = 'dark'
-vim.cmd('colorscheme PaperColor')
+vim.cmd('colorscheme PaperColorSlim')
 vim.cmd('highlight ColorColumn ctermbg=233 guibg=grey')
 
 -- basic options
