@@ -1,4 +1,6 @@
-call plug#begin('~/.config/nvim/plugged')
+local Plug = vim.fn['plug#']
+vim.call('plug#begin', '~/.config/nvim/plugged')
+
 Plug 'vimwiki/vimwiki'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -27,41 +29,34 @@ Plug 'honza/vim-snippets'
 Plug 'chrisbra/unicode.vim'
 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'lewis6991/gitsigns.nvim', { 'branch': 'main' }
+Plug('lewis6991/gitsigns.nvim', { branch = 'main' })
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = vim.fn['TSUpdate']})
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-cmdline', { 'branch': 'main' }
-Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
+Plug('hrsh7th/cmp-nvim-lsp', { branch = 'main' })
+Plug('hrsh7th/cmp-buffer', { branch = 'main' })
+Plug('hrsh7th/cmp-path', { branch = 'main' })
+Plug('hrsh7th/cmp-cmdline', { branch = 'main' })
+Plug('hrsh7th/nvim-cmp', { branch = 'main' })
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
-
-" dependencies
+-- dependencies
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-" telescope
+-- telescope
 Plug 'nvim-telescope/telescope.nvim'
+vim.call('plug#end')
 
-call plug#end()
+if vim.fn.has('termguicolors') == 1 then
+  vim.o.termguicolors = true
+end
 
-set nocompatible
-filetype on
-filetype plugin indent on
-filetype indent on
-
-if has('termguicolors')
-  set termguicolors
-endif
-
-"highlight trailing whitespace
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
-
-lua <<EOF
+-- highlight trailing whitespace
+vim.cmd([[
+        autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+        au InsertLeave * match ExtraWhitespace /\s\+$/
+]])
 -- Simplify movement shortcuts
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true })
@@ -124,7 +119,6 @@ vim.g.UltiSnipsExpandTrigger = "<tab>"
 vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
 vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
 vim.api.nvim_set_keymap('i', '<EXPR><TAB>', 'pumvisible() ? "<C-n>" : "<TAB>"', { noremap = true })
-vim.cmd('filetype plugin on')
 
 vim.cmd([[
   autocmd FileType md set filetype=markdown
@@ -142,20 +136,22 @@ highlight User5 guifg=#eeee40 guibg=#222222
 
 vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true })
 vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true })
-EOF
-" Better navigating through omnicomplete option list
-" See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
-function! OmniPopup(action)
-if pumvisible()
-if a:action == 'j'
-return "\<C-N>"
-elseif a:action == 'k'
-return "\<C-P>"
-endif
-endif
-return a:action
-endfunction
 
+-- Better navigating through omnicomplete option list
+-- See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
+--[[
+function OmniPopup(action)
+        if vim.fn.pumvisible() == 1 then
+                if vim.fn.a.action == 'j' then
+                        return "\<C-N>"
+                elseif vim.fn.a:action == 'k' then
+                        return "\<C-P>"
+                end
+        end
+        return vim.fn.a:action
+end
+]]--
+--[[
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
@@ -165,40 +161,45 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 "let g:SuperTabMappingForward = "<nul>"
 "let g:SuperTabMappingLiteral = "<Tab>"
 "let g:SuperTabDefaultCompletionType = "context"
+]]--
 
-" Pencil
+-- Pencil
+vim.cmd([[
 augroup pencil
   autocmd!
   "autocmd FileType markdown,md call pencil#init()
 "  autocmd FileType text         call pencil#init()
 augroup END
+]])
 
+vim.cmd([[
 augroup docker
         autocmd!
         autocmd BufRead,BufNewFile Dockerfile* setlocal ft=docker
 augroup END
+]])
 
-let g:projectionist_heuristics = {
-            \ '*.go': {
-            \   '*.go': {
-            \       'alternate': '{}_test.go',
-            \       'type': 'source'
-            \   },
-            \   '*_test.go': {
-            \       'alternate': '{}.go',
-            \       'type': 'test'
-            \   },
-            \  },
-            \ 'pyproject.toml': {
-            \  'src/*.py': { 'alternate': 'tests/test_{}.py' }
-            \ },
-            \'vue.config.js': {
-            \   'src/*.vue': { 'alternate': 'tests/unit/{}.spec.js' },
-            \   'src/*.js': { 'alternate': 'tests/unit/{}.spec.js' },
-            \   "tests/unit/*.spec.js": { "dispatch": "yarn test:unit {file}" }
-            \}}
+vim.g.projectionist_heuristics = {
+        ['*.go'] = {
+                ['*.go'] = {
+                        alternate = '{}_test.go',
+                        type = 'source'
+                },
+                ['*_test.go'] = {
+                        alternate = '{}.go',
+                        type = 'test'
+                },
+        },
+        ['pyproject.toml'] = {
+                ['src/*.py'] = { alternate = 'tests/test_{}.py' }
+        },
+        ['vue.config.js'] = {
+                ['src/*.vue'] = { alternate = 'tests/unit/{}.spec.js' },
+                ['src/*.js'] =  { alternate = 'tests/unit/{}.spec.js' },
+                ["tests/unit/*.spec.js"] = { dispatch = 'yarn test:unit {file}' }
+        }
+}
 
-lua <<EOF
 -- Abbreviations
 vim.cmd([[
 iabbrev mon Monday
@@ -212,24 +213,25 @@ iabbrev sun Sunday
 
 vim.g.pymode_rope_lookup_project = 0
 vim.g.pymode_rope = 0
-EOF
 
+--[[
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+]]
 
-"""
-" TextEdit might fail if hidden is not set.
-lua <<EOF
+-- TextEdit might fail if hidden is not set.
 vim.o.hidden = true -- TextEdit might fail if hidden is not set
 vim.o.cmdheight = 2 -- Give more space for displaying messages.
 --vim.o.shortmess = vim.o.shortmess + 'c' -- Don't pass messages to |ins-completion-menu|.
 
---augroup blanks
---       "autocmd!
---        "autocmd BufWritePre * call FixBlankLines()
---augroup END
+vim.cmd([[
+augroup blanks
+       autocmd!
+       autocmd BufWritePre * call FixBlankLines()
+augroup END
+]])
 
 vim.api.nvim_set_keymap('n', '<Leader>e', ':Files<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>f', '<cmd>Telescope find_files<CR>', { noremap = true, silent = true })
@@ -240,14 +242,6 @@ vim.api.nvim_set_keymap('n', '<Leader>b', '<cmd>Telescope buffers<CR>', { norema
 vim.api.nvim_set_keymap('n', '<Leader>n', ':NERDTreeToggle<CR>>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>t', ':Tagbar<CR>', { noremap = true, silent = true })
 
--- Gitgutter sign config
---vim.g.gitgutter_sign_added = '+'
---vim.g.gitgutter_sign_modified = '>'
---vim.g.gitgutter_sign_removed = '-'
---vim.g.gitgutter_sign_removed_first_line = '^'
---vim.g.gitgutter_sign_modified_removed = '<'
-EOF
-lua << EOF
 -- Ultisnips keybindings
 vim.g.UltiSnipsExpandTrigger = '<C-l>'
 vim.g.UltiSnipsJumpForwardTrigger = '<C-b>'
@@ -305,7 +299,6 @@ cmp.setup({
   snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
-        --vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
         -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
         vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
         -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
@@ -366,6 +359,12 @@ settings = {
         }
 }}
 )
+
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
 
 require('telescope').setup{
   defaults = {
@@ -494,5 +493,4 @@ on_attach = function(bufnr)
     map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
   }
-EOF
 
