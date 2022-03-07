@@ -10,6 +10,7 @@ Plug 'majutsushi/tagbar'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'reedes/vim-pencil'
 Plug 'plasticboy/vim-markdown'
+Plug('iamcco/markdown-preview.nvim', { ['do'] = vim.fn['mkdp#util#install'], ['for'] = {'markdown', 'vim-plug' }})
 Plug 'tomtom/tlib_vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'hashivim/vim-terraform'
@@ -27,6 +28,9 @@ Plug 'SirVer/ultisnips'
 Plug 'habamax/vim-asciidoctor'
 Plug 'honza/vim-snippets'
 Plug 'chrisbra/unicode.vim'
+
+-- Add ale for hadolint
+Plug 'dense-analysis/ale'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug('lewis6991/gitsigns.nvim', { branch = 'main' })
@@ -175,7 +179,7 @@ augroup END
 vim.cmd([[
 augroup docker
         autocmd!
-        autocmd BufRead,BufNewFile Dockerfile* setlocal ft=docker
+        autocmd BufRead,BufNewFile Dockerfile* setlocal ft=dockerfile
 augroup END
 ]])
 
@@ -313,9 +317,9 @@ cmp.setup({
 	  },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'ultisnips' },
     { name = 'buffer' },
     { name = 'path' },
-    { name = 'ultisnips' },
   })
 
   })
@@ -360,11 +364,9 @@ settings = {
 }}
 )
 
-
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
-
 
 require('telescope').setup{
   defaults = {
