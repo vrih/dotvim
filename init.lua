@@ -307,7 +307,7 @@ cmp.setup({
     },
   mapping = {
 	  ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
-	  ['<CR>'] = cmp.mapping.confirm({ select = true }),
+	  ['<Tab>'] = cmp.mapping.confirm({ select = true }),
 	  ['<C-e>'] = cmp.mapping(cmp.mapping.close()),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'})
@@ -492,3 +492,4 @@ on_attach = function(bufnr)
   end
   }
 
+  require 'vimwiki'
