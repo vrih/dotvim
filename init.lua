@@ -492,4 +492,6 @@ on_attach = function(bufnr)
   end
   }
 
+vim.cmd('autocmd InsertLeave *.md silent write')
+
   require 'vimwiki'
