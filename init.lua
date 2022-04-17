@@ -1,7 +1,7 @@
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki' 
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'tpope/vim-fugitive'
@@ -10,7 +10,7 @@ Plug 'majutsushi/tagbar'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'reedes/vim-pencil'
 Plug 'plasticboy/vim-markdown'
-Plug('iamcco/markdown-preview.nvim', { ['do'] = vim.fn['mkdp#util#install'], ['for'] = {'markdown', 'vim-plug' }})
+Plug('iamcco/markdown-preview.nvim', { ['do'] = vim.fn['mkdp#util#install()'], ['for'] = {'markdown', 'vim-plug' }})
 Plug 'tomtom/tlib_vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'hashivim/vim-terraform'
@@ -57,10 +57,24 @@ if vim.fn.has('termguicolors') == 1 then
 end
 
 -- highlight trailing whitespace
-vim.cmd([[
-        autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-        au InsertLeave * match ExtraWhitespace /\s\+$/
-]])
+vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "*",
+        callback = function(args)
+                vim.cmd('highlight ExtraWhitespace ctermbg=80 guibg=80')
+	end,
+        desc = "Highlight trailing whitespace"
+})
+vim.api.nvim_create_autocmd("InsertLeave", {
+        pattern = "*",
+        callback = function(args)
+                vim.cmd('match ExtraWhitespace /\\s\\+$/')
+	end,
+        desc = "Match traiging whitspace"
+})
+--vim.cmd([[
+        --autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+        --au InsertLeave * match ExtraWhitespace /\s\+$/
+--]])
 -- Simplify movement shortcuts
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true })
@@ -104,7 +118,7 @@ vim.o.number = true -- show line numbers
 vim.o.relativenumber = true
 vim.o.signcolumn = 'yes' -- Always show sign column
 vim.o.smartindent = true
-vim.o.laststatus = 2 -- Always show status bar
+vim.o.laststatus = 3 -- Show global status bar
 vim.o.title = true
 vim.o.tw = 79
 vim.o.updatetime = 300
@@ -124,11 +138,29 @@ vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
 vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
 vim.api.nvim_set_keymap('i', '<EXPR><TAB>', 'pumvisible() ? "<C-n>" : "<TAB>"', { noremap = true })
 
-vim.cmd([[
-  autocmd FileType md set filetype=markdown
-  autocmd FileType rb set filetype=ruby
-  autocmd BufRead,BufNewFile /tmp/*.md setlocal ft=markdown.glab
-  ]])
+vim.api.nvim_create_autocmd("FileType", {
+        pattern = "md",
+        callback = function(args)
+                vim.cmd('set filetype=markdown')
+        end,
+        desc = "Set markdown filetype for all md",
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+        pattern = "rb",
+        callback = function(args)
+                vim.cmd('set filetype=ruby')
+        end,
+        desc = "Set filetype to ruby for rb",
+})
+
+vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
+        pattern = "/tmp/*.md",
+        callback = function(args)
+                vim.cmd('setlocal ft=markdown.glab')
+        end,
+        desc = "Use gitlab mode for handling git commit messages",
+})
 
 vim.cmd([[
 highlight User1 guifg=#eea040 guibg=#222222
@@ -167,21 +199,13 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 "let g:SuperTabDefaultCompletionType = "context"
 ]]--
 
--- Pencil
-vim.cmd([[
-augroup pencil
-  autocmd!
-  "autocmd FileType markdown,md call pencil#init()
-"  autocmd FileType text         call pencil#init()
-augroup END
-]])
-
-vim.cmd([[
-augroup docker
-        autocmd!
-        autocmd BufRead,BufNewFile Dockerfile* setlocal ft=dockerfile
-augroup END
-]])
+vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
+        pattern = "Dockerfile*",
+        callback = function(args)
+                vim.cmd('setlocal ft=dockerfile')
+        end,
+        desc = "Interpret all dockerfiles correctly"
+})
 
 vim.g.projectionist_heuristics = {
         ['*.go'] = {
@@ -230,12 +254,13 @@ vim.o.hidden = true -- TextEdit might fail if hidden is not set
 vim.o.cmdheight = 2 -- Give more space for displaying messages.
 --vim.o.shortmess = vim.o.shortmess + 'c' -- Don't pass messages to |ins-completion-menu|.
 
-vim.cmd([[
-augroup blanks
-       autocmd!
-       autocmd BufWritePre * call FixBlankLines()
-augroup END
-]])
+vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "*",
+        callback = function(args)
+                vim.cmd('call FixBlankLines()')
+        end,
+        desc = "Remove double blank lines"
+})
 
 vim.api.nvim_set_keymap('n', '<Leader>e', ':Files<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>f', '<cmd>Telescope find_files<CR>', { noremap = true, silent = true })
@@ -492,6 +517,13 @@ on_attach = function(bufnr)
   end
   }
 
-vim.cmd('autocmd InsertLeave *.md silent write')
+vim.api.nvim_create_autocmd("InsertLeave", {
+        pattern = "*.md",
+        callback = function(args)
+                vim.cmd('silent write')
+        end,
+        desc = "Automatically save markdown on leaving insert"
+})
 
   require 'vimwiki'
+
