@@ -1,7 +1,7 @@
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 
-Plug 'vimwiki/vimwiki' 
+Plug 'vimwiki/vimwiki'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'tpope/vim-fugitive'
@@ -60,21 +60,18 @@ end
 vim.api.nvim_create_autocmd("ColorScheme", {
         pattern = "*",
         callback = function(args)
-                vim.cmd('highlight ExtraWhitespace ctermbg=80 guibg=80')
+                vim.cmd([[highlight ExtraWhitespace guibg=#ff0000]])
 	end,
         desc = "Highlight trailing whitespace"
 })
 vim.api.nvim_create_autocmd("InsertLeave", {
         pattern = "*",
         callback = function(args)
-                vim.cmd('match ExtraWhitespace /\\s\\+$/')
+                vim.cmd([[match ExtraWhitespace /\s\+$/]])
 	end,
-        desc = "Match traiging whitspace"
+        desc = "Match trailing whitspace"
 })
---vim.cmd([[
-        --autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-        --au InsertLeave * match ExtraWhitespace /\s\+$/
---]])
+
 -- Simplify movement shortcuts
 vim.keymap.set('n', '<C-h>', '<C-w>h')
 vim.keymap.set('n', '<C-j>', '<C-w>j')
@@ -162,13 +159,13 @@ vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
         desc = "Use gitlab mode for handling git commit messages",
 })
 
-vim.cmd([[
-highlight User1 guifg=#eea040 guibg=#222222
-highlight User2 guifg=#dd3333 guibg=#222222
-highlight User3 guifg=#ff66ff guibg=#222222
-highlight User4 guifg=#a0ee40 guibg=#222222
-highlight User5 guifg=#eeee40 guibg=#222222
-]])
+--vim.cmd([[
+--highlight User1 guifg=#eea040 guibg=#222222
+--highlight User2 guifg=#dd3333 guibg=#222222
+--highlight User3 guifg=#ff66ff guibg=#222222
+--highlight User4 guifg=#a0ee40 guibg=#222222
+--highlight User5 guifg=#eeee40 guibg=#222222
+--]])
 
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
@@ -257,7 +254,10 @@ vim.o.cmdheight = 2 -- Give more space for displaying messages.
 vim.api.nvim_create_autocmd("BufWritePre", {
         pattern = "*",
         callback = function(args)
-                vim.cmd('call FixBlankLines()')
+        vim.cmd([[
+                :silent %s/\($\n\)\{3,\}/\r\r/e
+                :silent %s/\($\n\)\{2,\}\%$/\r/e
+        ]])
         end,
         desc = "Remove double blank lines"
 })
