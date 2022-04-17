@@ -58,18 +58,18 @@ end
 
 -- highlight trailing whitespace
 vim.api.nvim_create_autocmd("ColorScheme", {
-        pattern = "*",
-        callback = function(args)
-                vim.cmd([[highlight ExtraWhitespace guibg=#ff0000]])
-	end,
-        desc = "Highlight trailing whitespace"
+  pattern = "*",
+  callback = function(args)
+    vim.cmd([[highlight ExtraWhitespace guibg=#ff0000]])
+  end,
+  desc = "Highlight trailing whitespace"
 })
 vim.api.nvim_create_autocmd("InsertLeave", {
-        pattern = "*",
-        callback = function(args)
-                vim.cmd([[match ExtraWhitespace /\s\+$/]])
-	end,
-        desc = "Match trailing whitspace"
+  pattern = "*",
+  callback = function(args)
+    vim.cmd([[match ExtraWhitespace /\s\+$/]])
+  end,
+  desc = "Match trailing whitspace"
 })
 
 -- Simplify movement shortcuts
@@ -136,27 +136,27 @@ vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
 vim.keymap.set('i', '<EXPR><TAB>', 'pumvisible() ? "<C-n>" : "<TAB>"')
 
 vim.api.nvim_create_autocmd("FileType", {
-        pattern = "md",
-        callback = function(args)
-                vim.cmd('set filetype=markdown')
-        end,
-        desc = "Set markdown filetype for all md",
+  pattern = "md",
+  callback = function(args)
+    vim.cmd('set filetype=markdown')
+  end,
+  desc = "Set markdown filetype for all md",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-        pattern = "rb",
-        callback = function(args)
-                vim.cmd('set filetype=ruby')
-        end,
-        desc = "Set filetype to ruby for rb",
+  pattern = "rb",
+  callback = function(args)
+    vim.cmd('set filetype=ruby')
+  end,
+  desc = "Set filetype to ruby for rb",
 })
 
 vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
-        pattern = "/tmp/*.md",
-        callback = function(args)
-                vim.cmd('setlocal ft=markdown.glab')
-        end,
-        desc = "Use gitlab mode for handling git commit messages",
+  pattern = "/tmp/*.md",
+  callback = function(args)
+    vim.cmd('setlocal ft=markdown.glab')
+  end,
+  desc = "Use gitlab mode for handling git commit messages",
 })
 
 --vim.cmd([[
@@ -174,14 +174,14 @@ vim.keymap.set('v', '>', '>gv')
 -- See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
 --[[
 function OmniPopup(action)
-        if vim.fn.pumvisible() == 1 then
-                if vim.fn.a.action == 'j' then
-                        return "\<C-N>"
-                elseif vim.fn.a:action == 'k' then
-                        return "\<C-P>"
-                end
-        end
-        return vim.fn.a:action
+  if vim.fn.pumvisible() == 1 then
+    if vim.fn.a.action == 'j' then
+      return "\<C-N>"
+    elseif vim.fn.a:action == 'k' then
+      return "\<C-P>"
+    end
+  end
+  return vim.fn.a:action
 end
 ]]--
 --[[
@@ -197,32 +197,32 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 ]]--
 
 vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
-        pattern = "Dockerfile*",
-        callback = function(args)
-                vim.cmd('setlocal ft=dockerfile')
-        end,
-        desc = "Interpret all dockerfiles correctly"
+  pattern = "Dockerfile*",
+  callback = function(args)
+    vim.cmd('setlocal ft=dockerfile')
+  end,
+  desc = "Interpret all dockerfiles correctly"
 })
 
 vim.g.projectionist_heuristics = {
-        ['*.go'] = {
-                ['*.go'] = {
-                        alternate = '{}_test.go',
-                        type = 'source'
-                },
-                ['*_test.go'] = {
-                        alternate = '{}.go',
-                        type = 'test'
-                },
-        },
-        ['pyproject.toml'] = {
-                ['src/*.py'] = { alternate = 'tests/test_{}.py' }
-        },
-        ['vue.config.js'] = {
-                ['src/*.vue'] = { alternate = 'tests/unit/{}.spec.js' },
-                ['src/*.js'] =  { alternate = 'tests/unit/{}.spec.js' },
-                ["tests/unit/*.spec.js"] = { dispatch = 'yarn test:unit {file}' }
-        }
+  ['*.go'] = {
+    ['*.go'] = {
+      alternate = '{}_test.go',
+      type = 'source'
+    },
+    ['*_test.go'] = {
+      alternate = '{}.go',
+      type = 'test'
+    },
+  },
+  ['pyproject.toml'] = {
+    ['src/*.py'] = { alternate = 'tests/test_{}.py' }
+  },
+  ['vue.config.js'] = {
+    ['src/*.vue'] = { alternate = 'tests/unit/{}.spec.js' },
+    ['src/*.js'] =  { alternate = 'tests/unit/{}.spec.js' },
+    ["tests/unit/*.spec.js"] = { dispatch = 'yarn test:unit {file}' }
+  }
 }
 
 -- Abbreviations
@@ -241,8 +241,8 @@ vim.g.pymode_rope = 0
 
 --[[
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+let col = col('.') - 1
+return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 ]]
 
@@ -252,14 +252,14 @@ vim.o.cmdheight = 2 -- Give more space for displaying messages.
 --vim.o.shortmess = vim.o.shortmess + 'c' -- Don't pass messages to |ins-completion-menu|.
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-        pattern = "*",
-        callback = function(args)
-        vim.cmd([[
-                :silent %s/\($\n\)\{3,\}/\r\r/e
-                :silent %s/\($\n\)\{2,\}\%$/\r/e
-        ]])
-        end,
-        desc = "Remove double blank lines"
+  pattern = "*",
+  callback = function(args)
+    vim.cmd([[
+    :silent %s/\($\n\)\{3,\}/\r\r/e
+    :silent %s/\($\n\)\{2,\}\%$/\r/e
+    ]])
+  end,
+  desc = "Remove double blank lines"
 })
 
 vim.keymap.set('n', '<Leader>e', ':Files<cr>', { silent = true })
@@ -310,15 +310,15 @@ local on_attach = function(client, bufnr)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
-      buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   elseif client.resolved_capabilities.document_range_formatting then
-      buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   end
 end
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
-      enable = true
+    enable = true
   },
 }
 
@@ -326,17 +326,17 @@ local cmp = require 'cmp'
 
 cmp.setup({
   snippet = {
-      expand = function(args)
-        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-      end,
-    },
+    expand = function(args)
+      vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+    end,
+  },
   mapping = {
-	  ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
-	  ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-	  ['<C-e>'] = cmp.mapping(cmp.mapping.close()),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-e>'] = cmp.mapping(cmp.mapping.close()),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'})
-	  },
+  },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'ultisnips' },
@@ -345,185 +345,185 @@ cmp.setup({
   })
 })
 
-	    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
   })
-
-  -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  -- require('lspconfig')['pyright'].setup {
-  --   capabilities = capabilities
-  -- }
-local servers = {'ansiblels', 'dockerls', 'pyright', 'pylsp', 'terraformls', 'vimls', 'bashls', 'yamlls'}
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    capabilties = capabilities,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
-end
-
-local lspconfig = require('lspconfig')
-lspconfig.yamlls.setup({
-on_attach = on_attach,
-settings = {
-        yaml = {
-                schemaDownload = {
-                enable = true
-                },
-                schemas = {
-                        }
-        }
-}}
-)
-
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-
-require('telescope').setup{
-  defaults = {
-    vimgrep_arguments = {
-      'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case'
-    },
-    prompt_prefix = "🔎 ",
-    selection_caret = "> ",
-    entry_prefix = "  ",
-    initial_mode = "insert",
-    selection_strategy = "reset",
-    sorting_strategy = "descending",
-    layout_strategy = "horizontal",
-    layout_config = {
-      horizontal = {
-        mirror = false,
-      },
-      vertical = {
-        mirror = false,
-      },
-    },
-    file_sorter =  require'telescope.sorters'.get_fuzzy_file,
-    file_ignore_patterns = {},
-    generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-    shorten_path = true,
-    winblend = 0,
-    border = {},
-    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-    color_devicons = true,
-    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-
-    -- Developer configurations: Not meant for general override
-    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
-  }
-}
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-    underline = true,
-    signs = true,
-    update_in_insert = false,
-  }
-)
-
-require'nvim-web-devicons'.setup {
- -- your personnal icons can go here (to override)
- -- DevIcon will be appended to `name`
- override = {
-  zsh = {
-    icon = "",
-    color = "#428850",
-    name = "Zsh"
-  }
- };
- -- globally enable default icons (default to false)
- -- will get overriden by `get_icons` option
- default = true;
-}
-
-require'lualine'.setup {
-  options = {
-    icons_enabled = true,
-    theme = 'auto',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    disabled_filetypes = {},
-    always_divide_middle = true,
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  extensions = {}
-}
-
-require('gitsigns').setup{
-on_attach = function(bufnr)
-    local function map(mode, lhs, rhs, opts)
-        opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
-        vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-    end
-
-    -- Navigation
-    map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-    map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
-
-    -- Actions
-    map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-    map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-    map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-    map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-    map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
-    map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
-    map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
-    map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
-    map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
-    map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
-    map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
-    map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
-    map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
-
-    -- Text object
-    map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-    map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-  end
-  }
-
-vim.api.nvim_create_autocmd("InsertLeave", {
-        pattern = "*.md",
-        callback = function(args)
-                vim.cmd('silent write')
-        end,
-        desc = "Automatically save markdown on leaving insert"
 })
 
-  require 'vimwiki'
+-- Setup lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+-- require('lspconfig')['pyright'].setup {
+  --   capabilities = capabilities
+  -- }
+  local servers = {'ansiblels', 'dockerls', 'pyright', 'pylsp', 'terraformls', 'vimls', 'bashls', 'yamlls'}
+  for _, lsp in ipairs(servers) do
+    nvim_lsp[lsp].setup {
+      on_attach = on_attach,
+      capabilties = capabilities,
+      flags = {
+        debounce_text_changes = 150,
+      }
+    }
+  end
+
+  local lspconfig = require('lspconfig')
+  lspconfig.yamlls.setup({
+    on_attach = on_attach,
+    settings = {
+      yaml = {
+        schemaDownload = {
+          enable = true
+        },
+        schemas = {
+        }
+      }
+    }}
+    )
+
+    local runtime_path = vim.split(package.path, ';')
+    table.insert(runtime_path, "lua/?.lua")
+    table.insert(runtime_path, "lua/?/init.lua")
+
+    require('telescope').setup{
+      defaults = {
+        vimgrep_arguments = {
+          'rg',
+          '--color=never',
+          '--no-heading',
+          '--with-filename',
+          '--line-number',
+          '--column',
+          '--smart-case'
+        },
+        prompt_prefix = "🔎 ",
+        selection_caret = "> ",
+        entry_prefix = "  ",
+        initial_mode = "insert",
+        selection_strategy = "reset",
+        sorting_strategy = "descending",
+        layout_strategy = "horizontal",
+        layout_config = {
+          horizontal = {
+            mirror = false,
+          },
+          vertical = {
+            mirror = false,
+          },
+        },
+        file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+        file_ignore_patterns = {},
+        generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+        shorten_path = true,
+        winblend = 0,
+        border = {},
+        borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+        color_devicons = true,
+        set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+        file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+        grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+
+        -- Developer configurations: Not meant for general override
+        buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
+      }
+    }
+
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+      virtual_text = false,
+      underline = true,
+      signs = true,
+      update_in_insert = false,
+    }
+    )
+
+    require'nvim-web-devicons'.setup {
+      -- your personnal icons can go here (to override)
+      -- DevIcon will be appended to `name`
+      override = {
+        zsh = {
+          icon = "",
+          color = "#428850",
+          name = "Zsh"
+        }
+      };
+      -- globally enable default icons (default to false)
+      -- will get overriden by `get_icons` option
+      default = true;
+    }
+
+    require'lualine'.setup {
+      options = {
+        icons_enabled = true,
+        theme = 'auto',
+        component_separators = { left = '', right = ''},
+        section_separators = { left = '', right = ''},
+        disabled_filetypes = {},
+        always_divide_middle = true,
+      },
+      sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch', 'diff', 'diagnostics'},
+        lualine_c = {'filename'},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+      },
+      tabline = {},
+      extensions = {}
+    }
+
+    require('gitsigns').setup{
+      on_attach = function(bufnr)
+        local function map(mode, lhs, rhs, opts)
+          opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
+          vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+        end
+
+        -- Navigation
+        map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
+        map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+
+        -- Actions
+        map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+        map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+        map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+        map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+        map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
+        map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
+        map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
+        map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
+        map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
+        map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
+        map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
+        map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
+        map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
+
+        -- Text object
+        map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+      end
+    }
+
+    vim.api.nvim_create_autocmd("InsertLeave", {
+      pattern = "*.md",
+      callback = function(args)
+        vim.cmd('silent write')
+      end,
+      desc = "Automatically save markdown on leaving insert"
+    })
+
+    require 'vimwiki'
 
