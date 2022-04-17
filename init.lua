@@ -76,10 +76,10 @@ vim.api.nvim_create_autocmd("InsertLeave", {
         --au InsertLeave * match ExtraWhitespace /\s\+$/
 --]])
 -- Simplify movement shortcuts
-vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true })
+vim.keymap.set('n', '<C-h>', '<C-w>h')
+vim.keymap.set('n', '<C-j>', '<C-w>j')
+vim.keymap.set('n', '<C-k>', '<C-w>k')
+vim.keymap.set('n', '<C-l>', '<C-w>l')
 
 -- theme
 vim.o.background = 'dark'
@@ -129,14 +129,14 @@ vim.o.wildmode = 'longest,list,full'
 vim.cmd('syntax on')
 
 vim.g.mapleader = ","  -- extend keyboard map options
-vim.api.nvim_set_keymap('n', '\\', ',', { noremap = true })
+vim.keymap.set('n', '\\', ',')
 -- Snippet shortcuts
 vim.g['deoplete#enable_at_startup'] = 1
 vim.g['deoplete#enable_smart_case'] = 1
 vim.g.UltiSnipsExpandTrigger = "<tab>"
 vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
 vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
-vim.api.nvim_set_keymap('i', '<EXPR><TAB>', 'pumvisible() ? "<C-n>" : "<TAB>"', { noremap = true })
+vim.keymap.set('i', '<EXPR><TAB>', 'pumvisible() ? "<C-n>" : "<TAB>"')
 
 vim.api.nvim_create_autocmd("FileType", {
         pattern = "md",
@@ -170,8 +170,8 @@ highlight User4 guifg=#a0ee40 guibg=#222222
 highlight User5 guifg=#eeee40 guibg=#222222
 ]])
 
-vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true })
-vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true })
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
 
 -- Better navigating through omnicomplete option list
 -- See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
@@ -262,14 +262,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         desc = "Remove double blank lines"
 })
 
-vim.api.nvim_set_keymap('n', '<Leader>e', ':Files<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>f', '<cmd>Telescope find_files<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>q', '<cmd>Telescope quickfix<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>a', '<cmd>Telescope live_grep<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>b', '<cmd>Telescope buffers<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<Leader>e', ':Files<cr>', { silent = true })
+vim.keymap.set('n', '<Leader>f', '<cmd>Telescope find_files<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>q', '<cmd>Telescope quickfix<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>a', '<cmd>Telescope live_grep<CR>', { silent = true })
+vim.keymap.set('n', '<Leader>b', '<cmd>Telescope buffers<CR>', { silent = true })
 
-vim.api.nvim_set_keymap('n', '<Leader>n', ':NERDTreeToggle<CR>>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>t', ':Tagbar<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<Leader>n', ':NERDTreeToggle<CR>>', { silent = true })
+vim.keymap.set('n', '<Leader>t', ':Tagbar<CR>', { silent = true })
 
 -- Ultisnips keybindings
 vim.g.UltiSnipsExpandTrigger = '<C-l>'
