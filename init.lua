@@ -1,6 +1,5 @@
-
-source "lua/plugins.lua"
-source "lua/autocommands.lua"
+require "plugins"
+require "autocommands"
 
 if vim.fn.has('termguicolors') == 1 then
   vim.o.termguicolors = true
@@ -27,7 +26,7 @@ vim.g.nobackup = true
 vim.g.noshowmode = true
 vim.g.nowritebackup = true
 vim.g.nowrap = true
-
+vim.o.laststatus = 3
 -- Set format options
 -- w = trailing white space indicated paragraph continues into next line
 -- c = autowrap comments
@@ -49,7 +48,6 @@ vim.o.number = true -- show line numbers
 vim.o.relativenumber = true
 vim.o.signcolumn = 'yes' -- Always show sign column
 vim.o.smartindent = true
-vim.o.laststatus = 3 -- Show global status bar
 vim.o.title = true
 vim.o.tw = 79
 vim.o.updatetime = 300
@@ -72,53 +70,6 @@ vim.keymap.set('i', '<EXPR><TAB>', 'pumvisible() ? "<C-n>" : "<TAB>"')
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
--- Better navigating through omnicomplete option list
--- See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
---[[
-function OmniPopup(action)
-  if vim.fn.pumvisible() == 1 then
-    if vim.fn.a.action == 'j' then
-      return "\<C-N>"
-    elseif vim.fn.a:action == 'k' then
-      return "\<C-P>"
-    end
-  end
-  return vim.fn.a:action
-end
-]]--
---[[
-inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
-
-" Tab Completion
-" Super Tab
-" http://www.vim.org/scripts/script.php?script_id=1643
-"let g:SuperTabMappingForward = "<nul>"
-"let g:SuperTabMappingLiteral = "<Tab>"
-"let g:SuperTabDefaultCompletionType = "context"
-]]--
-
-vim.g.projectionist_heuristics = {
-  ['*.go'] = {
-    ['*.go'] = {
-      alternate = '{}_test.go',
-      type = 'source'
-    },
-    ['*_test.go'] = {
-      alternate = '{}.go',
-      type = 'test'
-    },
-  },
-  ['pyproject.toml'] = {
-    ['src/*.py'] = { alternate = 'tests/test_{}.py' }
-  },
-  ['vue.config.js'] = {
-    ['src/*.vue'] = { alternate = 'tests/unit/{}.spec.js' },
-    ['src/*.js'] =  { alternate = 'tests/unit/{}.spec.js' },
-    ["tests/unit/*.spec.js"] = { dispatch = 'yarn test:unit {file}' }
-  }
-}
-
 -- Abbreviations
 vim.cmd([[
 iabbrev mon Monday
@@ -132,13 +83,6 @@ iabbrev sun Sunday
 
 vim.g.pymode_rope_lookup_project = 0
 vim.g.pymode_rope = 0
-
---[[
-function! s:check_back_space() abort
-let col = col('.') - 1
-return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-]]
 
 -- TextEdit might fail if hidden is not set.
 vim.o.hidden = true -- TextEdit might fail if hidden is not set
@@ -164,39 +108,39 @@ local nvim_lsp = require('lspconfig')
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-  --Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+--Enable completion triggered by <c-x><c-o>
+buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
+-- Mappings.
+local opts = { noremap=true, silent=true }
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+-- See `:help vim.lsp.*` for documentation on any of the below functions
+buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-  -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  elseif client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  end
+-- Set some keybinds conditional on server capabilities
+if client.resolved_capabilities.document_formatting then
+  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+elseif client.resolved_capabilities.document_range_formatting then
+  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+end
 end
 
 require'nvim-treesitter.configs'.setup {
@@ -243,162 +187,86 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 -- require('lspconfig')['pyright'].setup {
   --   capabilities = capabilities
   -- }
-  local servers = {'ansiblels', 'dockerls', 'pyright', 'pylsp', 'terraformls', 'vimls', 'bashls', 'yamlls'}
-  for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {
-      on_attach = on_attach,
-      capabilties = capabilities,
-      flags = {
-        debounce_text_changes = 150,
-      }
-    }
-  end
-
-  local lspconfig = require('lspconfig')
-  lspconfig.yamlls.setup({
+local servers = {'ansiblels', 'dockerls', 'pyright', 'pylsp', 'terraformls', 'vimls', 'bashls'}
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
     on_attach = on_attach,
-    settings = {
-      yaml = {
-        schemaDownload = {
-          enable = true
-        },
-        schemas = {
-        }
-      }
-    }}
-    )
+    capabilties = capabilities,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
 
-    local runtime_path = vim.split(package.path, ';')
-    table.insert(runtime_path, "lua/?.lua")
-    table.insert(runtime_path, "lua/?/init.lua")
-
-    require('telescope').setup{
-      defaults = {
-        vimgrep_arguments = {
-          'rg',
-          '--color=never',
-          '--no-heading',
-          '--with-filename',
-          '--line-number',
-          '--column',
-          '--smart-case'
-        },
-        prompt_prefix = "🔎 ",
-        selection_caret = "> ",
-        entry_prefix = "  ",
-        initial_mode = "insert",
-        selection_strategy = "reset",
-        sorting_strategy = "descending",
-        layout_strategy = "horizontal",
-        layout_config = {
-          horizontal = {
-            mirror = false,
-          },
-          vertical = {
-            mirror = false,
-          },
-        },
-        file_sorter =  require'telescope.sorters'.get_fuzzy_file,
-        file_ignore_patterns = {},
-        generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-        shorten_path = true,
-        winblend = 0,
-        border = {},
-        borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-        color_devicons = true,
-        set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-        file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-        grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-
-        -- Developer configurations: Not meant for general override
-        buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
+local lspconfig = require('lspconfig')
+lspconfig.yamlls.setup({
+  on_attach = on_attach,
+  settings = {
+    yaml = {
+      schemaDownload = {
+        enable = true
+      },
+      schemas = {
       }
     }
+  }}
+  )
 
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-      virtual_text = false,
-      underline = true,
-      signs = true,
-      update_in_insert = false,
-    }
-    )
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
 
-    require'nvim-web-devicons'.setup {
-      -- your personnal icons can go here (to override)
-      -- DevIcon will be appended to `name`
-      override = {
-        zsh = {
-          icon = "",
-          color = "#428850",
-          name = "Zsh"
-        }
-      };
-      -- globally enable default icons (default to false)
-      -- will get overriden by `get_icons` option
-      default = true;
-    }
-
-    require'lualine'.setup {
-      options = {
-        icons_enabled = true,
-        theme = 'auto',
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
-        disabled_filetypes = {},
-        always_divide_middle = true,
+require('telescope').setup{
+  defaults = {
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case'
+    },
+    prompt_prefix = "🔎 ",
+    selection_caret = "> ",
+    entry_prefix = "  ",
+    initial_mode = "insert",
+    selection_strategy = "reset",
+    sorting_strategy = "descending",
+    layout_strategy = "horizontal",
+    layout_config = {
+      horizontal = {
+        mirror = false,
       },
-      sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
-        lualine_x = {'encoding', 'fileformat', 'filetype'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+      vertical = {
+        mirror = false,
       },
-      inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
-        lualine_y = {},
-        lualine_z = {}
-      },
-      tabline = {},
-      extensions = {}
-    }
+    },
+    file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+    file_ignore_patterns = {},
+    generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+    shorten_path = true,
+    winblend = 0,
+    border = {},
+    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+    color_devicons = true,
+    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
 
-    require('gitsigns').setup{
-      on_attach = function(bufnr)
-        local function map(mode, lhs, rhs, opts)
-          opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
-          vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-        end
+    -- Developer configurations: Not meant for general override
+    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
+  }
+}
 
-        -- Navigation
-        map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-        map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = false,
+  underline = true,
+  signs = true,
+  update_in_insert = false,
+}
+)
 
-        -- Actions
-        map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-        map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-        map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-        map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-        map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
-        map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
-        map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
-        map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
-        map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
-        map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
-        map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
-        map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
-        map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
-
-        -- Text object
-        map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-        map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-      end
-    }
-
-    require 'vimwiki'
+require 'vimwiki'
 
