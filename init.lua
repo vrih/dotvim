@@ -1,15 +1,13 @@
+vim.g.mapleader = ","  -- extend keyboard map options
+
 require "plugins"
 require "autocommands"
+require "mappings"
+require 'vimwiki'
 
 if vim.fn.has('termguicolors') == 1 then
   vim.o.termguicolors = true
 end
-
--- Simplify movement shortcuts
-vim.keymap.set('n', '<C-h>', '<C-w>h')
-vim.keymap.set('n', '<C-j>', '<C-w>j')
-vim.keymap.set('n', '<C-k>', '<C-w>k')
-vim.keymap.set('n', '<C-l>', '<C-w>l')
 
 -- theme
 vim.o.background = 'dark'
@@ -57,18 +55,12 @@ vim.o.wildmode = 'longest,list,full'
 
 vim.cmd('syntax on')
 
-vim.g.mapleader = ","  -- extend keyboard map options
-vim.keymap.set('n', '\\', ',')
 -- Snippet shortcuts
 vim.g['deoplete#enable_at_startup'] = 1
 vim.g['deoplete#enable_smart_case'] = 1
 vim.g.UltiSnipsExpandTrigger = "<tab>"
 vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
 vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
-vim.keymap.set('i', '<EXPR><TAB>', 'pumvisible() ? "<C-n>" : "<TAB>"')
-
-vim.keymap.set('v', '<', '<gv')
-vim.keymap.set('v', '>', '>gv')
 
 -- Abbreviations
 vim.cmd([[
@@ -88,15 +80,6 @@ vim.g.pymode_rope = 0
 vim.o.hidden = true -- TextEdit might fail if hidden is not set
 vim.o.cmdheight = 2 -- Give more space for displaying messages.
 --vim.o.shortmess = vim.o.shortmess + 'c' -- Don't pass messages to |ins-completion-menu|.
-
-vim.keymap.set('n', '<Leader>e', ':Files<cr>', { silent = true })
-vim.keymap.set('n', '<Leader>f', '<cmd>Telescope find_files<CR>', { silent = true })
-vim.keymap.set('n', '<Leader>q', '<cmd>Telescope quickfix<CR>', { silent = true })
-vim.keymap.set('n', '<Leader>a', '<cmd>Telescope live_grep<CR>', { silent = true })
-vim.keymap.set('n', '<Leader>b', '<cmd>Telescope buffers<CR>', { silent = true })
-
-vim.keymap.set('n', '<Leader>n', ':NERDTreeToggle<CR>>', { silent = true })
-vim.keymap.set('n', '<Leader>t', ':Tagbar<CR>', { silent = true })
 
 -- Ultisnips keybindings
 vim.g.UltiSnipsExpandTrigger = '<C-l>'
@@ -267,6 +250,4 @@ vim.lsp.diagnostic.on_publish_diagnostics, {
   update_in_insert = false,
 }
 )
-
-require 'vimwiki'
 

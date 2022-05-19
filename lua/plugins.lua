@@ -116,7 +116,7 @@ vim.g.projectionist_heuristics = {
     },
   },
   ['pyproject.toml'] = {
-    ['src/*.py'] = { alternate = 'tests/test_{}.py' }
+    ['*.py'] = { alternate = 'tests/test_{}.py' }
   },
   ['vue.config.js'] = {
     ['src/*.vue'] = { alternate = 'tests/unit/{}.spec.js' },
