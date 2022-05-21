@@ -17,7 +17,7 @@ vim.cmd('highlight ColorColumn ctermbg=233 guibg=grey')
 -- basic options
 vim.o.autoindent = true
 vim.o.backspace = 'indent,eol,start'
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'noinsert,noselect,menuone'
 vim.o.encoding = 'utf-8'
 vim.o.expandtab = true
 vim.g.nobackup = true
@@ -142,19 +142,22 @@ cmp.setup({
   },
   mapping = {
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
     ['<C-e>'] = cmp.mapping(cmp.mapping.close()),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
-    ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'})
+    ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
+    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
+    ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
+    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
+    ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
   },
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
     { name = 'ultisnips' },
+    { name = 'nvim_lsp' },
     { name = 'buffer' },
     { name = 'path' },
   })
 })
-
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
