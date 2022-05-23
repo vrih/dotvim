@@ -18,6 +18,7 @@ vim.cmd('highlight ColorColumn ctermbg=233 guibg=grey')
 vim.o.autoindent = true
 vim.o.backspace = 'indent,eol,start'
 vim.o.completeopt = 'noinsert,noselect,menuone'
+vim.o.colorcolumn = 90
 vim.o.encoding = 'utf-8'
 vim.o.expandtab = true
 vim.g.nobackup = true
@@ -47,7 +48,8 @@ vim.o.relativenumber = true
 vim.o.signcolumn = 'yes' -- Always show sign column
 vim.o.smartindent = true
 vim.o.title = true
-vim.o.tw = 79
+vim.o.textwidth = 79
+vim.o.undofile = "~/.undo"
 vim.o.updatetime = 300
 vim.o.visualbell = true
 vim.o.wildmenu = true
