@@ -43,7 +43,7 @@ vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
 
 -- Remove double blank lines
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
+  pattern = "*.tf",
   callback = function(_)
     vim.cmd([[
     :silent %s/\($\n\)\{3,\}/\r\r/e

@@ -27,4 +27,6 @@ setlocal shiftround
 setlocal expandtab
 setlocal colorcolumn=81
 
-
+let b:ale_linters = ['bandit', 'pyright', 'mypy', 'flake8', 'pylint']
+let b:ale_fixers = ['black', 'isort']
+let b:ale_fix_on_save = 1

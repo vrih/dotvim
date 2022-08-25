@@ -144,7 +144,7 @@ cmp.setup({
   },
   mapping = {
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
     ['<C-e>'] = cmp.mapping(cmp.mapping.close()),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
@@ -175,7 +175,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 -- require('lspconfig')['pyright'].setup {
   --   capabilities = capabilities
   -- }
-local servers = {'ansiblels', 'dockerls', 'pyright', 'pylsp', 'terraformls', 'vimls', 'bashls'}
+local servers = {'ansiblels', 'vimls', 'bashls'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
