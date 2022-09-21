@@ -22,6 +22,7 @@ Plug 'posva/vim-vue'
 Plug 'tpope/vim-rake'
 Plug 'vimwiki/vimwiki'
 Plug('iamcco/markdown-preview.nvim', { ['do'] = vim.fn['mkdp#util#install()'], ['for'] = {'markdown', 'vim-plug' }})
+Plug 'aklt/plantuml-syntax'
 
 -----------------------------------------------------------------------
 -- Project
