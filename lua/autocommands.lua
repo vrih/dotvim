@@ -24,22 +24,31 @@ vim.api.nvim_create_autocmd("FileType", {
   desc = "Set markdown filetype for all md",
 })
 
-vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
-  pattern = "/tmp/*.md",
-  callback = function(_)
-    vim.cmd('setlocal ft=markdown.glab')
-  end,
-  desc = "Use gitlab mode for handling git commit messages",
-})
+-- Filetype mapping
+local filetypes = {
+  {
+    "*.avsc",
+    "json"
+  },
+  {
+    "/tmp/*.md/",
+    "markdown.glab"
+  },
+  {
+    "Dockerfile*",
+    "dockerfile"
+  }
+}
 
--- Without this Dockerfiles with a suffix don't match
-vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
-  pattern = "Dockerfile*",
-  callback = function(_)
-    vim.cmd('setlocal ft=dockerfile')
-  end,
-  desc = "Interpret all dockerfiles correctly"
-})
+for i, v in ipairs(filetypes) do
+  vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
+    pattern = v[1],
+    callback = function(_)
+      vim.cmd('setlocal ft=' .. v[2])
+    end,
+    desc = "",
+  })
+end
 
 -- Remove double blank lines
 vim.api.nvim_create_autocmd("BufWritePre", {
