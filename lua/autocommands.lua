@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "md",
+	pattern = "*.md",
 	callback = function(_)
 		vim.cmd("set filetype=markdown")
 	end,
@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Formatter
 -----------------------------------------------------------------------
 vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = "*.lua",
+	pattern = "*.lua,*.yaml,*.yml,*.scss",
 	callback = function(_)
 		vim.cmd([[FormatWrite]])
 	end,
