@@ -13,7 +13,6 @@ Plug 'pappasam/papercolor-theme-slim'
 -- Filetypes
 -----------------------------------------------------------------------
 
-Plug 'fatih/vim-go'
 Plug 'habamax/vim-asciidoctor'
 Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
@@ -49,6 +48,7 @@ Plug 'reedes/vim-pencil'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tomtom/tlib_vim'
 Plug 'vim-syntastic/syntastic'
+Plug 'mhartington/formatter.nvim'
 
 -- Add ale for hadolint
 Plug 'dense-analysis/ale'
@@ -189,4 +189,33 @@ require'nvim-web-devicons'.setup {
   -- globally enable default icons (default to false)
   -- will get overriden by `get_icons` option
   default = true;
+}
+
+-----------------------------------------------------------------------
+-- Formatter config
+-----------------------------------------------------------------------
+
+require("formatter").setup {
+  -- Enable or disable logging
+  logging = true,
+  -- Set the log level
+  log_level = vim.log.levels.WARN,
+  -- All formatter configurations are opt-in
+  filetype = {
+    -- Formatter configurations for filetype "lua" go here
+    -- and will be executed in order
+    lua = {
+      -- "formatter.filetypes.lua" defines default configurations for the
+      -- "lua" filetype
+      require("formatter.filetypes.lua").stylua,
+    },
+
+    -- Use the special "*" filetype for defining formatter configurations on
+    -- any filetype
+    ["*"] = {
+      -- "formatter.filetypes.any" defines default configurations for any
+      -- filetype
+      require("formatter.filetypes.any").remove_trailing_whitespace
+    }
+  }
 }
