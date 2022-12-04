@@ -221,6 +221,19 @@ require("formatter").setup({
 		scss = {
 			require("formatter.filetypes.css").prettier,
 		},
+		terraform = {
+			function()
+				return {
+					exe = "terraform",
+					args = {
+						"fmt",
+						"-no-color",
+						"-",
+					},
+					stdin = true,
+				}
+			end,
+		},
 		-- Use the special "*" filetype for defining formatter configurations on
 		-- any filetype
 		["*"] = {
