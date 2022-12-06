@@ -31,6 +31,7 @@ Plug("tpope/vim-dispatch")
 Plug("tpope/vim-fugitive")
 Plug("tpope/vim-projectionist")
 Plug("lewis6991/gitsigns.nvim", { branch = "main" })
+Plug("akinsho/git-conflict.nvim", { branch = "main" })
 
 -----------------------------------------------------------------------
 -- Utility
@@ -172,6 +173,12 @@ vim.g.syntastic_check_on_wq = 0
 
 vim.g.syntastic_lua_checkers = { "luacheck" }
 vim.g.syntastic_yaml_checkers = { "yamllint" }
+
+-----------------------------------------------------------------------
+-- Git Conflict
+-----------------------------------------------------------------------
+
+require("git-conflict").setup()
 
 -----------------------------------------------------------------------
 -- Webdev Icons config
