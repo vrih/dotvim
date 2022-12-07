@@ -23,6 +23,17 @@ vim.api.nvim_create_autocmd("FileType", {
 	desc = "Set markdown filetype for all md",
 })
 
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "Jenkinsfile",
+	callback = function(_)
+		vim.cmd("set filetype=groovy")
+	end,
+	desc = "Handle Jenkinsfile as groovy",
+})
+
+-----------------------------------------------------------------------
+
 -----------------------------------------------------------------------
 -- Formatter
 -----------------------------------------------------------------------
