@@ -50,6 +50,8 @@ Plug("tomtom/tlib_vim")
 Plug("vim-syntastic/syntastic")
 Plug("mhartington/formatter.nvim")
 Plug("simrat39/symbols-outline.nvim")
+Plug("kosayoda/nvim-lightbulb")
+Plug("antoinemadec/FixCursorHold.nvim")
 
 -- Add ale for hadolint
 Plug("dense-analysis/ale")
@@ -74,6 +76,7 @@ require "plugins.formatter"
 require "plugins.git-conflict"
 require "plugins.gitsigns"
 require "plugins.lualine"
+require "plugins.nvim-lightbulb"
 require "plugins.nvim-web-devicons"
 require "plugins.projectionist"
 require "plugins.symbols-outline"
