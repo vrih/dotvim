@@ -213,3 +213,19 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 	signs = true,
 	update_in_insert = false,
 })
+
+
+
+vim.filetype.add {
+        pattern = {
+                ['.*'] = {
+                        priority = -math.huge,
+                        function(path, bufnr)
+                                local content = vim.filetype.getlines(bufnr, 1)
+                                if vim.filetype.matchregex(content, [[^#!/usr/bin/env bash]]) then
+                                        return 'bash'
+                                end
+                        end,
+                },
+        },
+}
