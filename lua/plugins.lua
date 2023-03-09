@@ -13,12 +13,11 @@ Plug("pappasam/papercolor-theme-slim")
 -- Filetypes
 -----------------------------------------------------------------------
 
-Plug 'fatih/vim-go'
+Plug("fatih/vim-go")
 Plug("habamax/vim-asciidoctor")
 Plug("hashivim/vim-terraform")
 Plug("juliosueiras/vim-terraform-completion")
-Plug("plasticboy/vim-markdown")
-Plug("vimwiki/vimwiki")
+Plug("tpope/vim-markdown")
 Plug("iamcco/markdown-preview.nvim", { ["do"] = vim.fn["mkdp#util#install()"], ["for"] = { "markdown", "vim-plug" } })
 Plug("aklt/plantuml-syntax")
 
@@ -71,14 +70,13 @@ Plug("nvim-lua/popup.nvim")
 Plug("nvim-telescope/telescope.nvim")
 vim.call("plug#end")
 
-
-require "plugins.formatter"
-require "plugins.git-conflict"
-require "plugins.gitsigns"
-require "plugins.lualine"
-require "plugins.nvim-lightbulb"
-require "plugins.nvim-web-devicons"
-require "plugins.projectionist"
-require "plugins.symbols-outline"
-require "plugins.syntastic"
-require "plugins.telescope"
+require("plugins.formatter")
+require("plugins.git-conflict")
+require("plugins.gitsigns")
+require("plugins.lualine")
+require("plugins.nvim-lightbulb")
+require("plugins.nvim-web-devicons")
+require("plugins.projectionist")
+require("plugins.symbols-outline")
+require("plugins.syntastic")
+require("plugins.telescope")
