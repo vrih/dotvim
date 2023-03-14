@@ -16,6 +16,8 @@ vim.keymap.set("n", "<Leader>f", "<cmd>Telescope find_files<CR>", { silent = tru
 vim.keymap.set("n", "<Leader>q", "<cmd>Telescope quickfix<CR>", { silent = true })
 vim.keymap.set("n", "<Leader>a", "<cmd>Telescope live_grep<CR>", { silent = true })
 vim.keymap.set("n", "<Leader>b", "<cmd>Telescope buffers<CR>", { silent = true })
+vim.keymap.set("n", "<Leader>gb", "<cmd>Telescope git_branches<CR>", { silent = true })
+vim.keymap.set("n", "<Leader>gs", "<cmd>Telescope git_status<CR>", { silent = true })
 
 vim.keymap.set("n", "<Leader>n", ":NERDTreeToggle<CR>>", { silent = true })
 vim.keymap.set("n", "<Leader>t", ":Tagbar<CR>", { silent = true })

@@ -41,10 +41,10 @@ local filetypes = {
 		"*.avsc",
 		"json",
 	},
-  {
-    "Jenkinsfile",
-    "groovy"
-  },
+	{
+		"Jenkinsfile",
+		"groovy",
+	},
 	{
 		"/tmp/*.md/",
 		"markdown.glab",
