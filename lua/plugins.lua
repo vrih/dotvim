@@ -51,6 +51,7 @@ Plug("mhartington/formatter.nvim")
 Plug("simrat39/symbols-outline.nvim")
 Plug("kosayoda/nvim-lightbulb")
 Plug("antoinemadec/FixCursorHold.nvim")
+Plug("christoomey/vim-tmux-navigator")
 
 -- Add ale for hadolint
 Plug("dense-analysis/ale")
