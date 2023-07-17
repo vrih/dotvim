@@ -25,7 +25,7 @@ setlocal textwidth=80
 setlocal smarttab
 setlocal shiftround
 setlocal expandtab
-setlocal colorcolumn=81
+setlocal colorcolumn=101
 
 let b:ale_linters = ['bandit', 'pyright', 'mypy', 'flake8', 'pylint']
 let b:ale_fixers = ['black', 'isort']

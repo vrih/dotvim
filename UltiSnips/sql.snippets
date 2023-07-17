@@ -1,7 +1,18 @@
 snippet create_table "Create a new SQL table"
 CREATE TABLE IF NOT EXISTS $1 (
-  ID INTEGER PRIMARY KEY AUTOINCREMENT,
+	ID INTEGER PRIMARY KEY AUTOINCREMENT,
 	$2
 )
 endsnippet
 
+snippet brc "Begin read committed transaction"
+BEGIN ISOLATION LEVEL READ COMITTED;
+endsnippet
+
+snippet ea "Explain analyze"
+EXPLAIN (ANALYZE, BUFFERS, COST, VERBOSE)
+endsnippet
+§
+snippet cm "Commit transaction"
+COMMIT;
+endsnippet

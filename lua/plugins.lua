@@ -52,6 +52,8 @@ Plug("simrat39/symbols-outline.nvim")
 Plug("kosayoda/nvim-lightbulb")
 Plug("antoinemadec/FixCursorHold.nvim")
 Plug("christoomey/vim-tmux-navigator")
+Plug("eiginn/netrw")
+Plug("nvim-tree/nvim-tree.lua")
 
 -- Add ale for hadolint
 Plug("dense-analysis/ale")
@@ -81,3 +83,4 @@ require("plugins.projectionist")
 require("plugins.symbols-outline")
 require("plugins.syntastic")
 require("plugins.telescope")
+require("plugins.nvim-tree")

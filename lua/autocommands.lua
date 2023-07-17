@@ -23,12 +23,11 @@ vim.api.nvim_create_autocmd("FileType", {
 	desc = "Set markdown filetype for all md",
 })
 
-
 -----------------------------------------------------------------------
 -- Formatter
 -----------------------------------------------------------------------
 vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = "*.lua,*.yaml,*.yml,*.scss,*.tf",
+	pattern = "*.lua,*.yaml,*.yml,*.scss,*.tf,*.py,*.go",
 	callback = function(_)
 		vim.cmd([[FormatWrite]])
 	end,
@@ -52,6 +51,10 @@ local filetypes = {
 	{
 		"Dockerfile*",
 		"dockerfile",
+	},
+	{
+		"**/helm/**/*.yaml",
+		"helm",
 	},
 }
 
