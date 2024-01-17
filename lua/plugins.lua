@@ -8,6 +8,7 @@ vim.call("plug#begin", "~/.config/nvim/plugged")
 Plug("kyazdani42/nvim-web-devicons")
 Plug("nvim-lualine/lualine.nvim")
 Plug("pappasam/papercolor-theme-slim")
+Plug("catppuccin/nvim")
 
 -----------------------------------------------------------------------
 -- Filetypes

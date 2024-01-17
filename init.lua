@@ -18,7 +18,7 @@ end
 
 -- theme
 vim.o.background = "dark"
-vim.cmd("colorscheme PaperColorSlim")
+vim.cmd("colorscheme catppuccin-macchiato")
 vim.cmd("highlight ColorColumn ctermbg=233 guibg=grey")
 
 -- basic options
