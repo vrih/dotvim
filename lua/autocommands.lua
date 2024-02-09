@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Formatter
 -----------------------------------------------------------------------
 vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = "*.lua,*.yaml,*.yml,*.scss,*.tf,*.py,*.go",
+	pattern = "*.lua,*.yaml,*.yml,*.scss,*.tf,*.py",
 	callback = function(_)
 		vim.cmd([[FormatWrite]])
 	end,
