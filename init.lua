@@ -186,7 +186,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protoc
 -- require('lspconfig')['pyright'].setup {
 --   capabilities = capabilities
 -- }
-local servers = { "ansiblels", "vimls", "bashls", "terraformls", "gopls" }
+local servers = { "ansiblels", "vimls", "bashls", "terraformls", "gopls", "pyright" }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup({
 		on_attach = on_attach,

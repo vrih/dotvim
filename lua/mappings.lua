@@ -21,3 +21,7 @@ vim.keymap.set("n", "<Leader>gs", "<cmd>Telescope git_status<CR>", { silent = tr
 
 vim.keymap.set("n", "<Leader>n", ":NvimTreeToggle<CR>", { silent = true })
 vim.keymap.set("n", "<Leader>t", ":Tagbar<CR>", { silent = true })
+
+-- buffer navigation
+vim.keymap.set("n", "]b", ":bnext<CR>", { silent = true })
+vim.keymap.set("n", "[b", ":bprevious<CR>", { silent = true })
