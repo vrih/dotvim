@@ -25,3 +25,7 @@ vim.keymap.set("n", "<Leader>t", ":Tagbar<CR>", { silent = true })
 -- buffer navigation
 vim.keymap.set("n", "]b", ":bnext<CR>", { silent = true })
 vim.keymap.set("n", "[b", ":bprevious<CR>", { silent = true })
+
+-- tab navigation
+vim.keymap.set("n", "]t", ":tabnext<CR>", { silent = true })
+vim.keymap.set("n", "[t", ":tabprevious<CR>", { silent = true })
