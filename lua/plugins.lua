@@ -1,77 +1,84 @@
-local Plug = vim.fn["plug#"]
-vim.call("plug#begin", "~/.config/nvim/plugged")
+local plugins = {
+	-----------------------------------------------------------------------
+	-- Visual
+	-----------------------------------------------------------------------
 
------------------------------------------------------------------------
--- Visual
------------------------------------------------------------------------
+	"kyazdani42/nvim-web-devicons",
+	"nvim-lualine/lualine.nvim",
+	"pappasam/papercolor-theme-slim",
+	"catppuccin/nvim",
 
-Plug("kyazdani42/nvim-web-devicons")
-Plug("nvim-lualine/lualine.nvim")
-Plug("pappasam/papercolor-theme-slim")
-Plug("catppuccin/nvim")
+	-----------------------------------------------------------------------
+	-- Filetypes
+	-----------------------------------------------------------------------
 
------------------------------------------------------------------------
--- Filetypes
------------------------------------------------------------------------
+	"fatih/vim-go",
+	"habamax/vim-asciidoctor",
+	"hashivim/vim-terraform",
+	"juliosueiras/vim-terraform-completion",
+	"preservim/vim-markdown",
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+	},
+	"aklt/plantuml-syntax",
 
-Plug("fatih/vim-go")
-Plug("habamax/vim-asciidoctor")
-Plug("hashivim/vim-terraform")
-Plug("juliosueiras/vim-terraform-completion")
-Plug("preservim/vim-markdown")
-Plug("iamcco/markdown-preview.nvim", { ["do"] = vim.fn["mkdp#util#install()"], ["for"] = { "markdown", "vim-plug" } })
-Plug("aklt/plantuml-syntax")
+	-----------------------------------------------------------------------
+	-- Project
+	-----------------------------------------------------------------------
 
------------------------------------------------------------------------
--- Project
------------------------------------------------------------------------
+	"tpope/vim-dispatch",
+	"tpope/vim-fugitive",
+	"tpope/vim-projectionist",
+	{ "lewis6991/gitsigns.nvim", branch = "main" },
+	{ "akinsho/git-conflict.nvim", branch = "main" },
 
-Plug("tpope/vim-dispatch")
-Plug("tpope/vim-fugitive")
-Plug("tpope/vim-projectionist")
-Plug("lewis6991/gitsigns.nvim", { branch = "main" })
-Plug("akinsho/git-conflict.nvim", { branch = "main" })
+	-----------------------------------------------------------------------
+	-- Utility
+	-----------------------------------------------------------------------
 
------------------------------------------------------------------------
--- Utility
------------------------------------------------------------------------
+	"MarcWeber/vim-addon-mw-utils",
+	"SirVer/ultisnips",
+	"chrisbra/unicode.vim",
+	"editorconfig/editorconfig-vim",
+	"godlygeek/tabular",
+	"honza/vim-snippets",
+	"junegunn/vim-easy-align",
+	"majutsushi/tagbar",
+	"reedes/vim-pencil",
+	"preservim/nerdcommenter",
+	"tomtom/tlib_vim",
+	"mhartington/formatter.nvim",
+	"simrat39/symbols-outline.nvim",
+	"kosayoda/nvim-lightbulb",
+	"christoomey/vim-tmux-navigator",
+	"eiginn/netrw",
+	"nvim-tree/nvim-tree.lua",
 
-Plug("MarcWeber/vim-addon-mw-utils")
-Plug("SirVer/ultisnips")
-Plug("chrisbra/unicode.vim")
-Plug("editorconfig/editorconfig-vim")
-Plug("godlygeek/tabular")
-Plug("honza/vim-snippets")
-Plug("junegunn/vim-easy-align")
-Plug("majutsushi/tagbar")
-Plug("reedes/vim-pencil")
-Plug("preservim/nerdcommenter")
-Plug("tomtom/tlib_vim")
-Plug("mhartington/formatter.nvim")
-Plug("simrat39/symbols-outline.nvim")
-Plug("kosayoda/nvim-lightbulb")
-Plug("christoomey/vim-tmux-navigator")
-Plug("eiginn/netrw")
-Plug("nvim-tree/nvim-tree.lua")
+	-- Add ale for hadolint
+	"dense-analysis/ale",
+	"nvim-lua/plenary.nvim",
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	"neovim/nvim-lspconfig",
+	{ "hrsh7th/cmp-nvim-lsp", branch = "main" },
+	{ "hrsh7th/cmp-buffer", branch = "main" },
+	{ "hrsh7th/cmp-path", branch = "main" },
+	{ "hrsh7th/cmp-cmdline", branch = "main" },
+	{ "hrsh7th/nvim-cmp", branch = "main" },
+	"quangnguyen30192/cmp-nvim-ultisnips",
+	"windwp/nvim-autopairs",
 
--- Add ale for hadolint
-Plug("dense-analysis/ale")
-Plug("nvim-lua/plenary.nvim")
-Plug("nvim-treesitter/nvim-treesitter", { ["do"] = vim.fn["TSUpdate"] })
-Plug("neovim/nvim-lspconfig")
-Plug("hrsh7th/cmp-nvim-lsp", { branch = "main" })
-Plug("hrsh7th/cmp-buffer", { branch = "main" })
-Plug("hrsh7th/cmp-path", { branch = "main" })
-Plug("hrsh7th/cmp-cmdline", { branch = "main" })
-Plug("hrsh7th/nvim-cmp", { branch = "main" })
-Plug("quangnguyen30192/cmp-nvim-ultisnips")
-Plug("windwp/nvim-autopairs")
+	-- dependencies
+	"nvim-lua/popup.nvim",
+	-- telescope
+	"nvim-telescope/telescope.nvim",
+}
 
--- dependencies
-Plug("nvim-lua/popup.nvim")
--- telescope
-Plug("nvim-telescope/telescope.nvim")
-vim.call("plug#end")
+require("lazy").setup(plugins, opts)
 
 require("plugins.formatter")
 require("plugins.git-conflict")
