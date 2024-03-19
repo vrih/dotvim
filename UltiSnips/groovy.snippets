@@ -1,0 +1,14 @@
+snippet java_toolchain "Add string for setting Java version"
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(17)
+  }
+}
+endsnippet
+
+snippet kotlin_toolchain
+kotlin {
+    jvmToolchain(17)
+}
+endsnippet
+
