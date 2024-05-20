@@ -44,6 +44,7 @@ local plugins = {
 	-- Utility
 	-----------------------------------------------------------------------
 
+	"chentoast/marks.nvim",
 	"MarcWeber/vim-addon-mw-utils",
 	"SirVer/ultisnips",
 	"chrisbra/unicode.vim",
@@ -67,6 +68,9 @@ local plugins = {
 	"nvim-lua/plenary.nvim",
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	"neovim/nvim-lspconfig",
+
+	-- Add COC for home-assistant plugin
+	{ "neoclide/coc.nvim", branch = "release" },
 
 	-- Cmp
 	{ "hrsh7th/cmp-nvim-lsp", branch = "main" },
@@ -100,5 +104,5 @@ require("plugins.syntastic")
 require("plugins.telescope")
 require("plugins.nvim-tree")
 require("plugins.nvim-cmp")
-
+require("plugins.marks")
 require("nvim-autopairs").setup({})
