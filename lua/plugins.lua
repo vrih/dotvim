@@ -43,7 +43,7 @@ local plugins = {
 	-----------------------------------------------------------------------
 	-- Utility
 	-----------------------------------------------------------------------
-
+	"vimwiki/vimwiki",
 	"chentoast/marks.nvim",
 	"MarcWeber/vim-addon-mw-utils",
 	"SirVer/ultisnips",
@@ -105,4 +105,5 @@ require("plugins.telescope")
 require("plugins.nvim-tree")
 require("plugins.nvim-cmp")
 require("plugins.marks")
+require("plugins.vimwiki")
 require("nvim-autopairs").setup({})
