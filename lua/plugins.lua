@@ -88,6 +88,13 @@ local plugins = {
 	"nvim-lua/popup.nvim",
 	-- telescope
 	"nvim-telescope/telescope.nvim",
+
+	{
+		"vrih/quick-drafts",
+		config = function()
+			require("quick-drafts").setup({ root = "~/vimwiki/drafts/" })
+		end,
+	},
 }
 
 require("lazy").setup(plugins, opts)
