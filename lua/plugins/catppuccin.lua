@@ -35,8 +35,7 @@ require("catppuccin").setup({
 	color_overrides = {},
 	custom_highlights = function(colors)
 		return {
-			VertSplit = { bg = macchiato.pink },
-			Split = { bg = macchiato.pink },
+			WinSeparator = { fg = macchiato.pink },
 		}
 	end,
 	default_integrations = true,
@@ -54,5 +53,6 @@ require("catppuccin").setup({
 	},
 })
 
+print(macchiato.pink)
 -- setup must be called before loading
 vim.cmd.colorscheme("catppuccin-macchiato")
