@@ -12,7 +12,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = "," -- extend keyboard map options
+vim.g.mapleader = " " -- extend keyboard map options
 
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
@@ -32,14 +32,13 @@ end
 
 -- theme
 vim.o.background = "dark"
-vim.cmd("colorscheme catppuccin-macchiato")
 vim.cmd("highlight ColorColumn ctermbg=233 guibg=grey")
 
 -- basic options
 vim.o.autoindent = true
 vim.o.backspace = "indent,eol,start"
 vim.o.completeopt = "noinsert,noselect,menuone"
-vim.o.colorcolumn = 90
+vim.o.colorcolumn = "90"
 vim.o.encoding = "utf-8"
 vim.o.expandtab = true
 vim.g.nobackup = true
@@ -193,16 +192,16 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 	update_in_insert = false,
 })
 
-vim.filetype.add({
-	pattern = {
-		[".*"] = {
-			priority = -math.huge,
-			function(path, bufnr)
-				local content = vim.filetype.getlines(bufnr, 1)
-				if vim.filetype.matchregex(content, [[^#!/usr/bin/env bash]]) then
-					return "bash"
-				end
-			end,
-		},
-	},
-})
+--vim.filetype.add({
+--pattern = {
+--[".*"] = {
+--priority = -math.huge,
+--function(path, bufnr)
+--local content = vim.filetype.getline(1)
+--if vim.filetype.matchregex(content, [[^#!/usr/bin/env bash]]) then
+--return "bash"
+--end
+--end,
+--},
+--},
+--})

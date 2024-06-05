@@ -6,7 +6,13 @@ local plugins = {
 	{ "kyazdani42/nvim-web-devicons" },
 	{ "nvim-lualine/lualine.nvim", lazy = false },
 	"pappasam/papercolor-theme-slim",
-	{ "catppuccin/nvim", lazy = false },
+	{
+		"catppuccin/nvim",
+		config = function()
+			require("plugins.catppuccin")
+		end,
+		lazy = false,
+	},
 
 	-----------------------------------------------------------------------
 	-- Filetypes
