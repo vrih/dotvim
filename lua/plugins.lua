@@ -90,6 +90,8 @@ local plugins = {
 
 	"windwp/nvim-autopairs",
 
+	"github/copilot.vim",
+
 	-- dependencies
 	"nvim-lua/popup.nvim",
 	-- telescope

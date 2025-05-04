@@ -8,12 +8,12 @@ cmp.setup({
 	},
 	mapping = {
 		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
-		end, { "i", "s", "c" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			cmp_ultisnips_mappings.jump_backwards(fallback)
-		end, { "i", "s", "c" }),
+		--		["<Tab>"] = cmp.mapping(function(fallback)
+		--			cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+		--		end, { "i", "s", "c" }),
+		--		["<S-Tab>"] = cmp.mapping(function(fallback)
+		--			cmp_ultisnips_mappings.jump_backwards(fallback)
+		--		end, { "i", "s", "c" }),
 		["<C-e>"] = cmp.mapping(cmp.mapping.abort(), { "i", "c" }),
 		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),

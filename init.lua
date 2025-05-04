@@ -80,8 +80,8 @@ vim.cmd("syntax on")
 -- Snippet shortcuts
 vim.g["deoplete#enable_at_startup"] = 1
 vim.g["deoplete#enable_smart_case"] = 1
-vim.g.UltiSnipsExpandTrigger = "<tab>"
-vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
+vim.g.UltiSnipsExpandTrigger = "<C-n>"
+vim.g.UltiSnipsJumpForwardTrigger = "<C-b>"
 vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
 
 -- Abbreviations
@@ -115,7 +115,6 @@ local on_attach = function(client, bufnr)
 		vim.api.nvim_buf_set_option(bufnr, ...)
 	end
 
-	--Enable completion triggered by <c-x><c-o>
 	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	-- Mappings.
