@@ -90,7 +90,30 @@ local plugins = {
 
 	"windwp/nvim-autopairs",
 
-	"github/copilot.vim",
+	--  { "github/copilot.vim", cond = function()
+	--    return vim.fn.has("mac") == 1 and vim.fn.getenv("GITHUB_WORKSPACE") ~= ""
+	--  end },
+
+	{
+		"robitx/gp.nvim",
+		config = function()
+			require("gp").setup({
+				providers = {
+					openai = {
+						secret = vim.env.OPENAI_API_KEY,
+					},
+					copilot = {
+						endpoint = "https://api.githubcopilot.com/chat/completions",
+						secret = {
+							"bash",
+							"-c",
+							"cat ~/.config/github-copilot/apps.json | sed -e 's/.*oauth_token...//;s/\".*//'",
+						},
+					},
+				},
+			})
+		end,
+	},
 
 	-- dependencies
 	"nvim-lua/popup.nvim",

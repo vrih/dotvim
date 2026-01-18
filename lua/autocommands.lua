@@ -98,9 +98,10 @@ local Flush = function()
 	local val = string.gsub(s, "%/", ".")
 	package.loaded[val] = nil
 end
--- Reload vim config on save
+
+-- Reload vim config when any file in dotvim is saved
 vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = "*.lua",
+	pattern = vim.fn.stdpath("config") .. "/*.lua",
 	callback = function(_)
 		Flush()
 	end,
