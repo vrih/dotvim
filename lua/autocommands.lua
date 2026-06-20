@@ -23,17 +23,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	desc = "Set markdown filetype for all md",
 })
 
------------------------------------------------------------------------
--- Formatter
------------------------------------------------------------------------
-vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = "*.lua,*.yaml,*.yml,*.scss,*.tf,*.py",
-	callback = function(_)
-		vim.cmd([[FormatWrite]])
-	end,
-	desc = "Format files",
-})
-
 -- Filetype mapping
 local filetypes = {
 	{
@@ -59,7 +48,7 @@ local filetypes = {
 }
 
 for i, v in ipairs(filetypes) do
-	vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+	vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 		pattern = v[1],
 		callback = function(_)
 			vim.cmd("setlocal ft=" .. v[2])

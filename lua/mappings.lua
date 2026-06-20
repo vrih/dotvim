@@ -20,7 +20,26 @@ vim.keymap.set("n", "<Leader>gb", "<cmd>Telescope git_branches<CR>", { silent = 
 vim.keymap.set("n", "<Leader>gs", "<cmd>Telescope git_status<CR>", { silent = true })
 
 vim.keymap.set("n", "<Leader>n", ":NvimTreeToggle<CR>", { silent = true })
-vim.keymap.set("n", "<Leader>t", ":Tagbar<CR>", { silent = true })
+
+-- outline.nvim
+vim.keymap.set("n", "<Leader>so", ":Outline<CR>", { silent = true })
+
+-- gp.nvim (AI chat)
+vim.keymap.set("n", "<Leader>ai", ":GpChatNew<CR>", { silent = true })
+
+-- easy-align (start interactive mode)
+vim.keymap.set("x", "<Leader>ga", "<Plug>(EasyAlign)", {})
+vim.keymap.set("n", "<Leader>ga", "<Plug>(EasyAlign)", {})
+
+-- trouble (diagnostics)
+vim.keymap.set("n", "<Leader>xx", "<cmd>Trouble diagnostics toggle<CR>", { silent = true })
+vim.keymap.set("n", "<Leader>xb", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", { silent = true })
+vim.keymap.set("n", "<Leader>xq", "<cmd>Trouble qflist toggle<CR>", { silent = true })
+vim.keymap.set("n", "<Leader>xt", "<cmd>TodoTrouble<CR>", { silent = true })
+
+-- diffview
+vim.keymap.set("n", "<Leader>gd", "<cmd>DiffviewOpen<CR>", { silent = true })
+vim.keymap.set("n", "<Leader>gh", "<cmd>DiffviewFileHistory %<CR>", { silent = true })
 
 -- buffer navigation
 vim.keymap.set("n", "]b", ":bnext<CR>", { silent = true })

@@ -1,6 +1,6 @@
 -- Use Lazy nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -77,13 +77,6 @@ vim.o.wildmode = "longest,list,full"
 
 vim.cmd("syntax on")
 
--- Snippet shortcuts
-vim.g["deoplete#enable_at_startup"] = 1
-vim.g["deoplete#enable_smart_case"] = 1
-vim.g.UltiSnipsExpandTrigger = "<C-n>"
-vim.g.UltiSnipsJumpForwardTrigger = "<C-b>"
-vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
-
 -- Abbreviations
 vim.cmd([[
 iabbrev mon Monday
@@ -95,96 +88,135 @@ iabbrev sat Saturday
 iabbrev sun Sunday
 ]])
 
-vim.g.pymode_rope_lookup_project = 0
-vim.g.pymode_rope = 0
-
 -- TextEdit might fail if hidden is not set.
 vim.o.hidden = true -- TextEdit might fail if hidden is not set
 vim.o.cmdheight = 2 -- Give more space for displaying messages.
 --vim.o.shortmess = vim.o.shortmess + 'c' -- Don't pass messages to |ins-completion-menu|.
 
-local nvim_lsp = require("lspconfig")
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
-	local function buf_set_option(...)
-		vim.api.nvim_buf_set_option(bufnr, ...)
-	end
-
-	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-	-- Mappings.
-	local opts = { noremap = true, silent = true }
-
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-	buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-	buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-	buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	buf_set_keymap("n", "<space>e", "<cmd>lua vim.diagnostic.get()<CR>", opts)
-	buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-	buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-	buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-
-	-- Set some keybinds conditional on server capabilities
-	if client.resolved_capabilities.document_formatting then
-		buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-	elseif client.resolved_capabilities.document_range_formatting then
-		buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-	end
-end
-
 require("nvim-treesitter.configs").setup({
-	highlight = {
-		enable = true,
+	highlight = { enable = true },
+	textobjects = {
+		select = {
+			enable = true,
+			lookahead = true,
+			keymaps = {
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ac"] = "@class.outer",
+				["ic"] = "@class.inner",
+				["ab"] = "@block.outer",
+				["ib"] = "@block.inner",
+			},
+		},
+		move = {
+			enable = true,
+			set_jumps = true,
+			goto_next_start = {
+				["]f"] = "@function.outer",
+				["]c"] = "@class.outer",
+			},
+			goto_previous_start = {
+				["[f"] = "@function.outer",
+				["[c"] = "@class.outer",
+			},
+		},
 	},
 })
 
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
--- require('lspconfig')['pyright'].setup {
---   capabilities = capabilities
--- }
-local servers = { "ansiblels", "vimls", "bashls", "terraformls", "gopls", "pyright" }
-for _, lsp in ipairs(servers) do
-	nvim_lsp[lsp].setup({
-		on_attach = on_attach,
-		capabilties = capabilities,
-		flags = {
-			debounce_text_changes = 150,
-		},
-	})
-end
+-- Setup capabilities for blink.cmp
+local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-local lspconfig = require("lspconfig")
-lspconfig.yamlls.setup({
-	on_attach = on_attach,
+-- LSP keymaps on attach
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+	callback = function(ev)
+		local bufnr = ev.buf
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+		vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+		local opts = { buffer = bufnr, silent = true }
+
+		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+		vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+		vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
+		vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
+		vim.keymap.set("n", "<space>wl", function()
+			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+		end, opts)
+		vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
+		vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+		vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+		vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
+		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+		vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
+
+		if client and client.server_capabilities.inlayHintProvider then
+			vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+		end
+	end,
+})
+
+-- Configure LSP servers using vim.lsp.config (Neovim 0.11+)
+local runtime_path = vim.split(package.path, ";")
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+-- Define server configurations
+vim.lsp.config("ansiblels", { capabilities = capabilities })
+vim.lsp.config("vimls", { capabilities = capabilities })
+vim.lsp.config("bashls", { capabilities = capabilities })
+vim.lsp.config("terraformls", { capabilities = capabilities })
+vim.lsp.config("gopls", { capabilities = capabilities })
+vim.lsp.config("pyright", { capabilities = capabilities })
+
+vim.lsp.config("yamlls", {
+	capabilities = capabilities,
 	settings = {
 		yaml = {
-			schemaDownload = {
-				enable = true,
-			},
+			schemaDownload = { enable = true },
 			schemas = {},
 		},
 	},
 })
 
-local runtime_path = vim.split(package.path, ";")
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
+vim.lsp.config("lua_ls", {
+	capabilities = capabilities,
+	settings = {
+		Lua = {
+			runtime = {
+				version = "LuaJIT",
+				path = runtime_path,
+			},
+			diagnostics = {
+				globals = { "vim" },
+			},
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+				checkThirdParty = false,
+			},
+			telemetry = { enable = false },
+		},
+	},
+})
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+-- Enable all configured servers
+vim.lsp.enable("ansiblels")
+vim.lsp.enable("vimls")
+vim.lsp.enable("bashls")
+vim.lsp.enable("terraformls")
+vim.lsp.enable("gopls")
+vim.lsp.enable("pyright")
+vim.lsp.enable("yamlls")
+vim.lsp.enable("lua_ls")
+
+-- Configure diagnostics display
+vim.diagnostic.config({
 	virtual_text = false,
 	underline = true,
 	signs = true,

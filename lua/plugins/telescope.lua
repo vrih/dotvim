@@ -1,5 +1,15 @@
-require("telescope").setup({
+local telescope = require("telescope")
+
+telescope.setup({
 	defaults = {
+		mappings = {
+			i = {
+				["<C-q>"] = require("telescope.actions").send_selected_to_qflist + require("telescope.actions").open_qflist,
+			},
+			n = {
+				["<C-q>"] = require("telescope.actions").send_selected_to_qflist + require("telescope.actions").open_qflist,
+			},
+		},
 		vimgrep_arguments = {
 			"rg",
 			"--color=never",
@@ -9,7 +19,7 @@ require("telescope").setup({
 			"--column",
 			"--smart-case",
 		},
-		prompt_prefix = "🔎 ",
+		prompt_prefix = "> ",
 		selection_caret = "> ",
 		entry_prefix = "  ",
 		initial_mode = "insert",
@@ -19,25 +29,31 @@ require("telescope").setup({
 		layout_config = {
 			horizontal = {
 				mirror = false,
+				preview_width = 0.55,
 			},
 			vertical = {
 				mirror = false,
 			},
+			width = 0.87,
+			height = 0.80,
 		},
-		file_sorter = require("telescope.sorters").get_fuzzy_file,
-		file_ignore_patterns = {},
-		generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-		shorten_path = true,
+		file_ignore_patterns = { "node_modules", ".git/" },
 		winblend = 0,
 		border = {},
 		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
 		color_devicons = true,
-		set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
-		file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-		grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-
-		-- Developer configurations: Not meant for general override
-		buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+		set_env = { ["COLORTERM"] = "truecolor" },
+	},
+	extensions = {
+		fzf = {
+			fuzzy = true,
+			override_generic_sorter = true,
+			override_file_sorter = true,
+			case_mode = "smart_case",
+		},
 	},
 })
+
+-- Load fzf extension for better performance
+pcall(telescope.load_extension, "fzf")
 

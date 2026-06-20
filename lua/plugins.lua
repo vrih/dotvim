@@ -18,14 +18,15 @@ local plugins = {
 	-- Filetypes
 	-----------------------------------------------------------------------
 
-	{
-		"fatih/vim-go",
-		ft = "go",
-	},
 	{ "habamax/vim-asciidoctor", ft = { "asciidoc", "asciidoctor" } },
 	{ "hashivim/vim-terraform", ft = "terraform" },
-	{ "juliosueiras/vim-terraform-completion", ft = "terraform" },
 	{ "preservim/vim-markdown", ft = { "markdown" } },
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		ft = { "markdown" },
+		dependencies = { "nvim-treesitter/nvim-treesitter", "kyazdani42/nvim-web-devicons" },
+		opts = {},
+	},
 	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -37,7 +38,7 @@ local plugins = {
 	"aklt/plantuml-syntax",
 
 	-----------------------------------------------------------------------
-	-- Project
+	-- Project / Git
 	-----------------------------------------------------------------------
 
 	"tpope/vim-dispatch",
@@ -45,54 +46,56 @@ local plugins = {
 	"tpope/vim-projectionist",
 	{ "lewis6991/gitsigns.nvim", branch = "main" },
 	{ "akinsho/git-conflict.nvim", branch = "main" },
+	{ "sindrets/diffview.nvim" },
 
 	-----------------------------------------------------------------------
 	-- Utility
 	-----------------------------------------------------------------------
+
 	"vimwiki/vimwiki",
 	"chentoast/marks.nvim",
-	"MarcWeber/vim-addon-mw-utils",
-	"SirVer/ultisnips",
 	"chrisbra/unicode.vim",
-	"editorconfig/editorconfig-vim",
-	"godlygeek/tabular",
 	"honza/vim-snippets",
 	"junegunn/vim-easy-align",
-	"majutsushi/tagbar",
 	"reedes/vim-pencil",
-	"preservim/nerdcommenter",
-	"tomtom/tlib_vim",
-	"mhartington/formatter.nvim",
-	"simrat39/symbols-outline.nvim",
+	{ "hedyhli/outline.nvim", cmd = { "Outline", "OutlineOpen" } },
 	"kosayoda/nvim-lightbulb",
 	"christoomey/vim-tmux-navigator",
-	"eiginn/netrw",
-	{ "nvim-tree/nvim-tree.lua", cmd = { "NvimTreeToggle" } },
+	{ "nvim-tree/nvim-tree.lua" },
 
-	-- Add ale for hadolint
-	"dense-analysis/ale",
 	"nvim-lua/plenary.nvim",
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	"nvim-treesitter/nvim-treesitter-textobjects",
+	{ "nvim-treesitter/nvim-treesitter-context" },
 	"neovim/nvim-lspconfig",
 
-	-- Add COC for home-assistant plugin
-	{ "neoclide/coc.nvim", branch = "release" },
+	-- Snippets
+	{
+		"L3MON4D3/LuaSnip",
+		version = "v2.*",
+		build = "make install_jsregexp",
+	},
 
-	-- Cmp
-	{ "hrsh7th/cmp-nvim-lsp", branch = "main" },
-	{ "ray-x/cmp-treesitter" },
-	{ "hrsh7th/cmp-buffer", branch = "main" },
-	{ "hrsh7th/cmp-path", branch = "main" },
-	{ "hrsh7th/cmp-cmdline", branch = "main" },
-	{ "hrsh7th/nvim-cmp", branch = "main" },
-	"onsails/lspkind.nvim",
-	"quangnguyen30192/cmp-nvim-ultisnips",
+	-- Completion
+	{
+		"saghen/blink.cmp",
+		version = "*",
+		dependencies = { "L3MON4D3/LuaSnip" },
+	},
+
+	-- Formatting
+	{ "stevearc/conform.nvim" },
+
+	-- Diagnostics
+	{ "folke/trouble.nvim", version = "*" },
+
+	-- Todo comments
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 
 	"windwp/nvim-autopairs",
-
-	--  { "github/copilot.vim", cond = function()
-	--    return vim.fn.has("mac") == 1 and vim.fn.getenv("GITHUB_WORKSPACE") ~= ""
-	--  end },
 
 	{
 		"robitx/gp.nvim",
@@ -115,10 +118,18 @@ local plugins = {
 		end,
 	},
 
-	-- dependencies
-	"nvim-lua/popup.nvim",
+	-- which-key for keybinding hints
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("plugins.which-key")
+		end,
+	},
+
 	-- telescope
 	"nvim-telescope/telescope.nvim",
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
 	{
 		"vrih/quick-drafts",
@@ -130,18 +141,22 @@ local plugins = {
 
 require("lazy").setup(plugins, opts)
 
-require("plugins.formatter")
+require("plugins.conform")
+require("plugins.luasnip")
+require("plugins.blink")
 require("plugins.git-conflict")
 require("plugins.gitsigns")
 require("plugins.lualine")
 require("plugins.nvim-lightbulb")
 require("plugins.nvim-web-devicons")
 require("plugins.projectionist")
-require("plugins.symbols-outline")
-require("plugins.syntastic")
+require("plugins.outline")
 require("plugins.telescope")
 require("plugins.nvim-tree")
-require("plugins.nvim-cmp")
 require("plugins.marks")
 require("plugins.vimwiki")
+require("plugins.trouble")
+require("plugins.diffview")
+require("plugins.treesitter-context")
+require("plugins.todo-comments")
 require("nvim-autopairs").setup({})

@@ -1,12 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =8
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='scp://dan@ds/'
+let g:netrw_dirhist_1='scp://dan@ds/docker/homeassistant/'
+let g:netrw_dirhist_0='scp://dan@ds/docker/'
+let g:netrw_dirhist_9='scp://dan@ds/'
 let g:netrw_dirhist_8='/home/daniel/ansible/docker-compose/syncthing'
 let g:netrw_dirhist_7='/home/daniel/dotfiles/i3/.config/i3/i3blocks'
 let g:netrw_dirhist_6='/home/daniel/ansible/docker-compose/syncthing'
 let g:netrw_dirhist_5='/home/daniel/ansible/docker-compose'
 let g:netrw_dirhist_4='/home/daniel'
 let g:netrw_dirhist_3='/home/daniel/ansible'
-let g:netrw_dirhist_2='/home/daniel/ansible/playbooks'
-let g:netrw_dirhist_1='/home/daniel/ansible/docker-compose/node-red'
-let g:netrw_dirhist_0='/home/daniel/ansible/docker-compose/home-assistant'
-let g:netrw_dirhist_9='/home/daniel/ansible/docker-compose/syncthing'
