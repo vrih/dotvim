@@ -24,7 +24,6 @@ vim.opt.termguicolors = true
 require("plugins")
 require("autocommands")
 require("mappings")
-require("vimwiki")
 
 if vim.fn.has("termguicolors") == 1 then
 	vim.o.termguicolors = true
@@ -89,6 +88,7 @@ iabbrev sun Sunday
 ]])
 
 -- TextEdit might fail if hidden is not set.
+vim.o.clipboard = "unnamedplus"
 vim.o.hidden = true -- TextEdit might fail if hidden is not set
 vim.o.cmdheight = 2 -- Give more space for displaying messages.
 --vim.o.shortmess = vim.o.shortmess + 'c' -- Don't pass messages to |ins-completion-menu|.

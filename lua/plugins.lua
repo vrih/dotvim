@@ -52,7 +52,6 @@ local plugins = {
 	-- Utility
 	-----------------------------------------------------------------------
 
-	"vimwiki/vimwiki",
 	"chentoast/marks.nvim",
 	"chrisbra/unicode.vim",
 	"honza/vim-snippets",
@@ -154,7 +153,6 @@ require("plugins.outline")
 require("plugins.telescope")
 require("plugins.nvim-tree")
 require("plugins.marks")
-require("plugins.vimwiki")
 require("plugins.trouble")
 require("plugins.diffview")
 require("plugins.treesitter-context")
