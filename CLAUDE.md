@@ -23,6 +23,7 @@ git submodule update
 **Entry point**: `init.lua` - Sets up lazy.nvim, configures leader key (Space), loads core modules, sets Neovim options, and configures LSP servers.
 
 **Core modules** (in `lua/`):
+
 - `plugins.lua` - Plugin definitions for lazy.nvim and loads plugin configurations
 - `mappings.lua` - Global keybindings
 - `autocommands.lua` - Auto-formatting, filetype detection, and whitespace highlighting
@@ -37,6 +38,7 @@ git submodule update
 ## Key Mappings
 
 Leader key is Space. Key bindings:
+
 - `<Leader>f` - Telescope find files
 - `<Leader>a` - Telescope live grep
 - `<Leader>b` - Telescope buffers
@@ -48,6 +50,7 @@ Leader key is Space. Key bindings:
 - `]t` / `[t` - Next/previous tab
 
 LSP mappings (when attached):
+
 - `gd` - Go to definition
 - `gD` - Go to declaration
 - `K` - Hover

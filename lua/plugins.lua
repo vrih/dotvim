@@ -63,9 +63,8 @@ local plugins = {
 	{ "nvim-tree/nvim-tree.lua" },
 
 	"nvim-lua/plenary.nvim",
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-	"nvim-treesitter/nvim-treesitter-textobjects",
-	{ "nvim-treesitter/nvim-treesitter-context" },
+	{ "nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate" },
+	-- "nvim-treesitter/nvim-treesitter-textobjects", -- needs migration for nvim-treesitter main branch
 	"neovim/nvim-lspconfig",
 
 	-- Snippets
@@ -155,6 +154,5 @@ require("plugins.nvim-tree")
 require("plugins.marks")
 require("plugins.trouble")
 require("plugins.diffview")
-require("plugins.treesitter-context")
 require("plugins.todo-comments")
 require("nvim-autopairs").setup({})

@@ -11,7 +11,6 @@ require("blink.cmp").setup({
 		["<C-d>"] = { "scroll_documentation_up", "fallback" },
 	},
 	appearance = {
-		use_nvim_web_devicons = true,
 		nerd_font_variant = "mono",
 	},
 	sources = {
